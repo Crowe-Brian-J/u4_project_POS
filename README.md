@@ -2,7 +2,12 @@
 
 ## 7 July 2023
 
-### by Brian Crowe
+### by Brian Crowe - [Github](https://github.com/Crowe-Brian-J) - [LinkedIn](https://www.linkedin.com/in/brian-j-crowe/)
+
+---
+
+## **_Getting Started_**
+[Trello](https://trello.com/b/AVSY0dB0/posinventory) - [ERD](https://app.diagrams.net/?src=about#G1zQh0TeX3oaK7e9sYKUagQ4-DJjwloDWM) - [CHD (abbreviated for funsies)](https://app.diagrams.net/#G1pLPftsFrwQyJKpBvCdzGS3Dkbs2C7Ncg)
 
 ---
 
