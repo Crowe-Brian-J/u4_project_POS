@@ -8,6 +8,10 @@
 
 ## **_Description_**
 
+When I was in the Package Store Business (Liquor Stores for you heathens), I hated every Point of Sale (POS) System we had/were shown. It wasn't really optimized for a Liquor Store. If it was, it wasn't intuitive. Or it didn't track inventory well, specifically when we rang 30 or 36 packs of cans to make 6 packs, but also for breakage and discounts. It also offered so much customization and old databases that didn't merge well that we would wind up with 4 different ways to add 750mL bottles of wine to the system. Nothing was uniform because naming conventions had been done by one old man 40 years ago, and he refused to follow it. I'd prefer to consolidate options and make things as streamlined as possible, while still allowing employees to do their jobs correctly and efficiently.
+
+With that in mind
+
 ---
 
 ## **_Models_**
