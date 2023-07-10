@@ -1,5 +1,6 @@
 import ListWindow from '../components/ListWindow'
 import Receipt from '../components/Receipt'
+import Total from '../components/Total'
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
         <ListWindow />
         <Receipt />
       </div>
+      <Total />
     </div>
   )
 }

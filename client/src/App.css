@@ -34,7 +34,6 @@ body {
 .card {
   position: relative;
   padding: 2px 16px;
-  min-height: 70vh;
 }
 
 .main-transaction {
@@ -42,8 +41,30 @@ body {
 }
 
 .receipt-box {
-  font-size: small;
   width: 25%;
   text-align: center;
   min-height: 70%
+}
+
+.receipt-head {
+  font-size:small;
+}
+
+.receipt-contact, .receipt-contact * {
+  font-size: smaller;
+}
+
+.bottom-total {
+  margin: 2vh;
+  display: flex;
+  justify-content: space-between;
+  color:#04724d;
+  max-height: 10%;
+}
+
+.item-enter {
+  background-color: #121d2b;
+  color: #fffafb;
+  margin: 2vh;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2) inset;
 }

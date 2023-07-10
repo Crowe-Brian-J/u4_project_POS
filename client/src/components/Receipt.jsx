@@ -7,9 +7,7 @@ const Receipt = () => {
         <div className="receipt-street-address">300 Mishawum Rd</div>
         <div className="receipt-city">Woburn, MA 01876</div>
         <div className="receipt-phone">781-555-2152</div>
-        <div className="receipt-thanks">
-          Thanks for shopping with us! We also do weekend delivery!
-        </div>
+        <div className="receipt-thanks">Thanks for shopping with us!</div>
       </div>
     </div>
   )
