@@ -1,15 +1,15 @@
-import Search from '../components/Search'
-import Nav from '../components/Nav'
+import ListWindow from '../components/ListWindow'
+import Receipt from '../components/Receipt'
 
 const Home = () => {
   return (
-    <div className="top-of-screen">
-      <div className="top-bar">
-        <Search />
-        <Nav />
-      </div>
+    <div>
       <div className="home">
         <h1>Irish Spirits</h1>
+      </div>
+      <div className="main-transaction">
+        <ListWindow />
+        <Receipt />
       </div>
     </div>
   )

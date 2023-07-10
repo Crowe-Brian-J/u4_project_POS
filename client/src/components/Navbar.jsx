@@ -1,4 +1,4 @@
-const Nav = () => {
+const Navbar = () => {
   return (
     <div className="navbar">
       <div className="icon">NavIconHere</div>
@@ -6,4 +6,4 @@ const Nav = () => {
   )
 }
 
-export default Nav
+export default Navbar

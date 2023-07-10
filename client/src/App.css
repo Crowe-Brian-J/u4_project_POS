@@ -21,3 +21,29 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.window {
+  display: block;
+  width: 70%;
+  margin: 2vh;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2) inset;
+  transition: 0.3s;
+  background-color: #fffafb;
+}
+
+.card {
+  position: relative;
+  padding: 2px 16px;
+  min-height: 70vh;
+}
+
+.main-transaction {
+  display: flex;
+}
+
+.receipt-box {
+  font-size: small;
+  width: 25%;
+  text-align: center;
+  min-height: 70%
+}
