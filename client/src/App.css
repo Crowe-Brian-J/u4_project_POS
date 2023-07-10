@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-image: linear-gradient(to bottom right, #121d2b, #86bbd8);
+  font-family: 'Lato', sans-serif;
+}
+
+.home {
+  color: #04724d;
+  column-count: 2;
+}
+
+.search {
+  color: #fffafb
+}
