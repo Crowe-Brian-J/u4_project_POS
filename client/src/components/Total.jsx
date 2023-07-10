@@ -6,7 +6,16 @@ const Total = () => {
         <h5>Tax: $0.00</h5>
         <h5>Deposit: $0.20</h5>
       </div>
-      <h1>Total: $10.95</h1>
+      <div>
+        <h1>Total: $10.95</h1>
+        <button className="pay-button">
+          <strong>Cash</strong>
+        </button>
+        &nbsp;
+        <button className="pay-button">
+          <strong>Card/Tap</strong>
+        </button>
+      </div>
     </div>
   )
 }

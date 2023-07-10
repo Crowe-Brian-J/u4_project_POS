@@ -8,10 +8,9 @@ body {
   font-family: 'Lato', sans-serif;
 }
 
-.home {
+.home, .order {
   margin-left: 2vh;
   color: #04724d;
-  column-count: 2;
 }
 
 .search, .icon{
@@ -79,4 +78,25 @@ body {
 
 .list {
   min-height: 68vh;
+}
+
+.pay-button {
+  background-color: #04724d;
+  border: none;
+  color:#fffafb;
+  text-align: center;
+  padding: 7px 30px;
+}
+
+.order-form {
+  margin-left: 2vh;
+  color: #fffafb;
+}
+
+.order-table {
+  border-top: 1px solid #04724d;
+}
+
+th {
+  border-bottom: 1px solid #04724d;
 }
