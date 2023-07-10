@@ -7,10 +7,17 @@ body {
 }
 
 .home {
+  margin-left: 2vh;
   color: #04724d;
   column-count: 2;
 }
 
-.search {
-  color: #fffafb
+.search,  .icon{
+  color: #fffafb;
+  margin: 1vh 2vh 0 2vh;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
 }

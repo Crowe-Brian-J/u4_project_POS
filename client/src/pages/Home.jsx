@@ -1,11 +1,16 @@
+import Search from '../components/Search'
+import Nav from '../components/Nav'
+
 const Home = () => {
   return (
-    <div className="home">
-      <h1>Irish Spirits</h1>
-      <form className="search">
-        <label htmlFor="gsearch">Search Product Database: </label>
-        <input type="search" id="product-search" className="product-search" />
-      </form>
+    <div className="top-of-screen">
+      <div className="top-bar">
+        <Search />
+        <Nav />
+      </div>
+      <div className="home">
+        <h1>Irish Spirits</h1>
+      </div>
     </div>
   )
 }
