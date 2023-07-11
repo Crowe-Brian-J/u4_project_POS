@@ -93,6 +93,11 @@ body {
   color: #fffafb;
 }
 
-th {
+table, th {
   border: 1px solid #04724d;
+}
+
+th {
+  background-color: #86bbd8;
+  color: #243a56;
 }
