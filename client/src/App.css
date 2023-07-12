@@ -1,11 +1,10 @@
-
-
 body {
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-image: linear-gradient(to bottom right, #121d2b, #243a56);
   font-family: 'Lato', sans-serif;
+  color: #fffafb;
 }
 
 .home, .order {
@@ -100,4 +99,46 @@ table, th {
 th {
   background-color: #86bbd8;
   color: #243a56;
+}
+
+.vendors {
+  margin: 2vh;
+  text-decoration: none;
+}
+
+.vendor-card {
+  background-color: #fffafb;
+  color:#243a56;
+  max-width: 30vh;
+}
+
+.info-wrapper > p {
+  margin: 2vh;
+  color: #04724d;
+}
+
+input {
+  font-family: 'Lato', sans-serif;
+  width: 95%;
+  padding: 12px;
+  margin: 8px;
+  display: inline-block;
+  border: 1px solid #fffafb;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+button {
+  font-family: 'Lato', sans-serif;
+  width: 20vh;
+  background-color: #04724d;
+  color: #fffafb;
+  padding: 14px 20px;
+  margin: 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  font-size: medium;
 }

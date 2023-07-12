@@ -1,7 +1,9 @@
 const NewVendor = () => {
   return (
     <div>
-      <form action=""></form>
+      <form action="">
+        <div></div>
+      </form>
     </div>
   )
 }
