@@ -129,6 +129,7 @@ input {
 }
 
 button {
+  display: grid;
   font-family: 'Lato', sans-serif;
   width: 20vh;
   background-color: #04724d;

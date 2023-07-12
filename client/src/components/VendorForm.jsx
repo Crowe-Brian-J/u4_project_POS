@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-const VendorEdit = (props) => {
-  const initialState = {
+const VendorForm = (props) => {
+  let initialState = {
     vendorName: props.vendorName,
     repName: props.repName,
     phoneNumber: props.phoneNumber,
@@ -12,6 +12,7 @@ const VendorEdit = (props) => {
 
   const handleChange = (evt) => {
     setFormState({ ...formState, [evt.target.id]: evt.target.value })
+    console.log(evt.target.value)
   }
 
   return (
@@ -25,7 +26,7 @@ const VendorEdit = (props) => {
           id="vendorName"
           className="vendorName"
           onChange={handleChange}
-          value={props.vendorName}
+          value={formState.vendorName}
           placeholder={props.vendorName}
         />
         <br />
@@ -36,7 +37,7 @@ const VendorEdit = (props) => {
           id="repName"
           className="repName"
           onChange={handleChange}
-          value={props.repName}
+          value={formState.repName}
           placeholder={props.repName}
         />
         <br />
@@ -47,7 +48,7 @@ const VendorEdit = (props) => {
           id="phoneNumber"
           className="phoneNumber"
           onChange={handleChange}
-          value={props.phoneNumber}
+          value={formState.phoneNumber}
           placeholder={props.phoneNumber}
         />
         <br />
@@ -58,15 +59,15 @@ const VendorEdit = (props) => {
           id="email"
           className="email"
           onChange={handleChange}
-          value={props.email}
+          value={formState.email}
           placeholder={props.email}
         />
+        <button className="submitButton" type="submit">
+          Submit
+        </button>
       </form>
-      <button className="submitButton" type="submit">
-        Submit
-      </button>
     </div>
   )
 }
 
-export default VendorEdit
+export default VendorForm

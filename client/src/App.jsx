@@ -7,6 +7,7 @@ import Vendors from './pages/Vendors'
 import VendorDetails from './pages/VendorDetails'
 import Search from './components/Search'
 import Navbar from './components/Navbar'
+import NewVendor from './pages/NewVendor'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/order" element={<Order />} />
           <Route path="/vendors" element={<Vendors />} />
+          <Route path="/vendors/new" element={<NewVendor />} />
           <Route path="/vendors/:id" element={<VendorDetails />} />
         </Routes>
       </main>
