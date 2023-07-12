@@ -62,7 +62,9 @@ const VendorEdit = (props) => {
           placeholder={props.email}
         />
       </form>
-      <button type="submit">Submit</button>
+      <button className="submitButton" type="submit">
+        Submit
+      </button>
     </div>
   )
 }
