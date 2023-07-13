@@ -1,13 +1,19 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
 
-const NewVendor = ({ vendors, setVendors }) => {
+const NewVendor = ({ location }) => {
   let initialState = {
     vendorName: '',
     repName: '',
     phoneNumber: '',
     email: ''
+  }
+
+  location = useLocation()
+  const { vendors, setVendors } = location.state || {
+    vendors: [],
+    setVendors: () => {}
   }
 
   const [formState, setFormState] = useState(initialState)
@@ -16,13 +22,20 @@ const NewVendor = ({ vendors, setVendors }) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault()
-    let newVendor = await axios.post('http://localhost:3001/vendors', formState)
-    console.log(vendors)
-    let newList = [...vendors]
-    newList.push(newVendor.data)
-    setVendors(newList)
-    setFormState(initialState)
-    navigate('/vendors')
+
+    try {
+      const newVendor = await axios.post(
+        'http://localhost:3001/vendors',
+        formState
+      )
+      let newList = [...vendors]
+      newList.push(newVendor.data)
+      setVendors(newList)
+      setFormState(initialState)
+      navigate('/vendors')
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const handleChange = (evt) => {
@@ -54,7 +67,7 @@ const NewVendor = ({ vendors, setVendors }) => {
         <input
           type="text"
           id="phoneNumber"
-          pattern="/^\+?1?[-.\s]?\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})$/"
+          pattern="^\+?1?[-.\s]?\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})$"
           value={formState.phoneNumber}
           onChange={handleChange}
         />

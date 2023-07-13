@@ -38,7 +38,12 @@ const Vendors = () => {
           />
         </Link>
       ))}
-      <Link to={'new'} style={{ textDecoration: 'none' }}>
+      <Link
+        to={{ pathname: 'new', state: { vendors, setVendors } }}
+        //   'new'}
+        // state={(vendors, setVendors)}
+        style={{ textDecoration: 'none' }}
+      >
         <button className="add-vendor">Add a Vendor</button>
       </Link>
     </div>
