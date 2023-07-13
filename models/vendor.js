@@ -4,7 +4,7 @@ const vendorSchema = new Schema({
   vendorName: { type: String, required: true },
   repName: { type: String, required: true },
   phoneNumber: {
-    type: Number,
+    type: String,
     match: /^\+?1?[-.\s]?\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})$/,
     required: true
   },

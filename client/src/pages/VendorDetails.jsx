@@ -2,7 +2,9 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import VendorForm from '../components/VendorForm'
 
-const VendorDetails = () => {
+const VendorDetails = (props) => {
+  console.log(props.key)
+
   const vendies = [
     {
       vendorName: 'Bud',

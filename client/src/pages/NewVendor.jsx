@@ -5,7 +5,7 @@ const NewVendor = ({ vendors, setVendors }) => {
   let initialState = {
     vendorName: '',
     repName: '',
-    phoneNumber: NaN,
+    phoneNumber: '',
     email: ''
   }
 
@@ -23,7 +23,6 @@ const NewVendor = ({ vendors, setVendors }) => {
 
   const handleChange = (evt) => {
     setFormState({ ...formState, [evt.target.id]: evt.target.value })
-    console.log(evt.target.value)
   }
 
   return (
@@ -33,7 +32,6 @@ const NewVendor = ({ vendors, setVendors }) => {
         <input
           type="text"
           id="vendorName"
-          className="vendorName"
           onChange={handleChange}
           value={formState.vendorName}
         />
@@ -43,19 +41,13 @@ const NewVendor = ({ vendors, setVendors }) => {
         <input
           type="text"
           id="repName"
-          className="repName"
           onChange={handleChange}
           value={formState.repName}
         />
         <br />
         <br />
         <label htmlFor="phoneNumber">Phone Number:&emsp;</label>
-        <input
-          type="tel"
-          id="phoneNumber"
-          className="phoneNumber"
-          onChange={handleChange}
-        />
+        <input type="tel" id="phoneNumber" onChange={handleChange} />
         <br />
         <br />
         <label htmlFor="email">Email:&emsp;</label>
