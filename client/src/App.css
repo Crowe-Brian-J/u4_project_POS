@@ -143,3 +143,11 @@ button {
   align-items: center;
   font-size: medium;
 }
+
+.container-grid {
+  padding: 2em 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 320px);
+  grid-gap: 1em;
+  justify-content: center;
+}

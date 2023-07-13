@@ -20,8 +20,7 @@ const Vendors = () => {
   }, [])
 
   return (
-    <div className="vendors">
-      <br />
+    <div className="vendors container-grid">
       {/* remove index, change key to vendor.id */}
       {vendors.map((vendor) => (
         <Link
