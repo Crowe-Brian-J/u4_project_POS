@@ -39,7 +39,9 @@ const Vendors = () => {
           />
         </Link>
       ))}
-      <button className="add-vendor">Add a Vendor</button>
+      <Link to={'new'} style={{ textDecoration: 'none' }}>
+        <button className="add-vendor">Add a Vendor</button>
+      </Link>
     </div>
   )
 }

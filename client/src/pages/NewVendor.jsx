@@ -32,8 +32,8 @@ const NewVendor = ({ vendors, setVendors }) => {
         <input
           type="text"
           id="vendorName"
-          onChange={handleChange}
           value={formState.vendorName}
+          onChange={handleChange}
         />
         <br />
         <br />
@@ -41,13 +41,18 @@ const NewVendor = ({ vendors, setVendors }) => {
         <input
           type="text"
           id="repName"
-          onChange={handleChange}
           value={formState.repName}
+          onChange={handleChange}
         />
         <br />
         <br />
         <label htmlFor="phoneNumber">Phone Number:&emsp;</label>
-        <input type="tel" id="phoneNumber" onChange={handleChange} />
+        <input
+          type="text"
+          id="phoneNumber"
+          value={formState.phoneNumber}
+          onChange={handleChange}
+        />
         <br />
         <br />
         <label htmlFor="email">Email:&emsp;</label>
@@ -55,13 +60,13 @@ const NewVendor = ({ vendors, setVendors }) => {
           type="email"
           id="email"
           className="email"
-          onChange={handleChange}
           value={formState.email}
+          onChange={handleChange}
         />
+        <button className="submitButton" type="submit">
+          Submit
+        </button>
       </form>
-      <button className="submitButton" type="submit">
-        Submit
-      </button>
     </div>
   )
 }

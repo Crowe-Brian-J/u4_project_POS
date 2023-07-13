@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
 const VendorForm = (props) => {
+  console.log('This is props: ' + props.vendorName)
+
   let initialState = {
     vendorName: props.vendorName,
     repName: props.repName,
@@ -12,7 +14,6 @@ const VendorForm = (props) => {
 
   const handleChange = (evt) => {
     setFormState({ ...formState, [evt.target.id]: evt.target.value })
-    console.log(evt.target.value)
   }
 
   return (
