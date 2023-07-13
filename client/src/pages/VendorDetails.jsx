@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 const VendorDetails = () => {
   const [vendorDetails, setVendorDetails] = useState({
@@ -31,6 +31,7 @@ const VendorDetails = () => {
     getDetails()
   }, [vendorId])
 
+  const navigate = useNavigate()
   const handleSubmit = async (evt) => {
     evt.preventDefault()
 
@@ -45,6 +46,7 @@ const VendorDetails = () => {
         vendorDetails
       )
       console.log(response.data)
+      navigate('/vendors')
     } catch (error) {
       console.error(error)
     }

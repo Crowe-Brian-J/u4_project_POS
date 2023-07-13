@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const NewVendor = ({ vendors, setVendors }) => {
@@ -11,14 +12,17 @@ const NewVendor = ({ vendors, setVendors }) => {
 
   const [formState, setFormState] = useState(initialState)
 
+  const navigate = useNavigate()
+
   const handleSubmit = async (evt) => {
     evt.preventDefault()
     let newVendor = await axios.post('http://localhost:3001/vendors', formState)
-    console.log(newVendor)
+    console.log(vendors)
     let newList = [...vendors]
     newList.push(newVendor.data)
     setVendors(newList)
     setFormState(initialState)
+    navigate('/vendors')
   }
 
   const handleChange = (evt) => {
@@ -50,6 +54,7 @@ const NewVendor = ({ vendors, setVendors }) => {
         <input
           type="text"
           id="phoneNumber"
+          pattern="/^\+?1?[-.\s]?\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})$/"
           value={formState.phoneNumber}
           onChange={handleChange}
         />
