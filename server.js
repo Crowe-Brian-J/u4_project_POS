@@ -27,6 +27,13 @@ app.post('/vendors', async (req, res) => {
   res.send(newVendor)
 })
 
+app.get('/vendors/:id', async (req, res) => {
+  const id = req.params.id
+  console.log(id)
+  let vendor = await Vendor.findById(id)
+  res.send(vendor)
+})
+
 app
 
 app.listen(PORT, () => {
