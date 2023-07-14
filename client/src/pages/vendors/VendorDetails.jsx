@@ -14,18 +14,13 @@ const VendorDetails = () => {
 
   useEffect(() => {
     const getDetails = async () => {
-      // const response = await axios.get(
-      //   `http://localhost:3001/vendors/${vendorId}`
-      // )
-      // console.log(response.data)
-      // setVendorDetails(response.data)
       try {
         const response = await axios.get(
           `http://localhost:3001/vendors/${vendorId}`
         )
         setVendorDetails(response.data)
-      } catch (error) {
-        console.error(error)
+      } catch (err) {
+        console.error(err)
       }
     }
     getDetails()
@@ -34,21 +29,14 @@ const VendorDetails = () => {
   const navigate = useNavigate()
   const handleSubmit = async (evt) => {
     evt.preventDefault()
-
-    // let updateData = await axios.put(
-    //   `http://localhost:3001/vendors/${vendorId}`,
-    //   vendorDetails
-    // )
-    // console.log(updateData)
     try {
       const response = await axios.put(
         `http://localhost:3001/vendors/${vendorId}`,
         vendorDetails
       )
-      console.log(response.data)
       navigate('/vendors')
-    } catch (error) {
-      console.error(error)
+    } catch (err) {
+      console.error(err)
     }
   }
 

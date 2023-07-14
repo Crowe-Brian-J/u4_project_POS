@@ -1,4 +1,4 @@
-import VendorCard from '../components/VendorCard'
+import VendorCard from '../../components/VendorCard'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
@@ -11,7 +11,7 @@ const Vendors = () => {
       let res = await axios.get('http://localhost:3001/vendors')
       setVendors(res.data)
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
@@ -25,30 +25,21 @@ const Vendors = () => {
       setVendors((previousVendors) =>
         previousVendors.filter((vendor) => vendor._id !== id)
       )
-
       console.log('Vendor deleted successfully!')
-    } catch (error) {
-      console.error(error)
+    } catch (err) {
+      console.error(err)
     }
-    // const index = vendors.findIndex((vendor) => vendor._id === id)
-    // let expandList = [...list]
-    // expandList.splice(index, 1)
-    // setVendors(expandList)
-    // I need to get this to send an axios call
   }
 
   return (
     <div>
       <Link
         to={{ pathname: 'new', state: { vendors, setVendors } }}
-        //   'new'}
-        // state={(vendors, setVendors)}
         style={{ textDecoration: 'none' }}
       >
         <button className="add-vendor">Add a Vendor</button>
       </Link>
       <div className="vendors container-grid">
-        {/* remove index, change key to vendor.id */}
         {vendors.map((vendor) => (
           <div key={vendor._id}>
             <button
@@ -58,7 +49,6 @@ const Vendors = () => {
               Delete {vendor.vendorName}
             </button>
             <Link
-              // Don't use leading vendors/anything for link here.
               to={`${vendor._id}`}
               key={vendor._id}
               style={{ textDecoration: 'none' }}

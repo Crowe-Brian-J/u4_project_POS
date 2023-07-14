@@ -43,9 +43,10 @@ const productSchema = new Schema(
         'Nonalcoholic'
       ]
     },
-    taxable: { type: Boolean, required: true },
+    taxable: { type: Boolean, default: false, required: true },
     activeStatus: {
       type: String,
+      default: 'active',
       enum: ['active', 'inactive (i.e. seasonally unavailable)']
     },
     unitSize: {
@@ -118,14 +119,13 @@ const productSchema = new Schema(
       required: true
     },
     dietaryRestrictions: {
-      type: String,
-      enum: ['Kosher', 'Organic', 'No Discos']
-    },
-    parLevelsMin: {
-      type: Number
-    },
-    parLevelsMax: {
-      type: Number
+      type: [
+        {
+          type: String,
+          enum: ['Kosher', 'Organic']
+        }
+      ],
+      default: []
     },
     aisle: {
       type: Number
