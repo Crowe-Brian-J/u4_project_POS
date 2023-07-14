@@ -19,39 +19,26 @@ const Vendors = () => {
     getVendors()
   }, [])
 
-  const handleDelete = (id, list) => {
-    let expandList = [...list]
-    expandList.splice(id, 1)
-    setVendors(expandList)
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3001/vendors/${id}`)
+      setVendors((previousVendors) =>
+        previousVendors.filter((vendor) => vendor._id !== id)
+      )
+
+      console.log('Vendor deleted successfully!')
+    } catch (error) {
+      console.error(error)
+    }
+    // const index = vendors.findIndex((vendor) => vendor._id === id)
+    // let expandList = [...list]
+    // expandList.splice(index, 1)
+    // setVendors(expandList)
+    // I need to get this to send an axios call
   }
 
   return (
-    <div className="vendors container-grid">
-      {/* remove index, change key to vendor.id */}
-      {vendors.map((vendor) => (
-        <div key={vendor._id}>
-          <Link
-            // Don't use leading vendors/anything for link here.
-            to={`${vendor._id}`}
-            key={vendor._id}
-            style={{ textDecoration: 'none' }}
-          >
-            <VendorCard
-              key={vendor._id}
-              vendorName={vendor.vendorName}
-              repName={vendor.repName}
-              phoneNumber={vendor.phoneNumber}
-              email={vendor.email}
-            />
-          </Link>
-          <button
-            className="delete-button button-container"
-            onClick={() => handleDelete(vendor._id, vendors)}
-          >
-            Delete {vendor.vendorName}
-          </button>
-        </div>
-      ))}
+    <div>
       <Link
         to={{ pathname: 'new', state: { vendors, setVendors } }}
         //   'new'}
@@ -60,6 +47,33 @@ const Vendors = () => {
       >
         <button className="add-vendor">Add a Vendor</button>
       </Link>
+      <div className="vendors container-grid">
+        {/* remove index, change key to vendor.id */}
+        {vendors.map((vendor) => (
+          <div key={vendor._id}>
+            <Link
+              // Don't use leading vendors/anything for link here.
+              to={`${vendor._id}`}
+              key={vendor._id}
+              style={{ textDecoration: 'none' }}
+            >
+              <VendorCard
+                key={vendor._id}
+                vendorName={vendor.vendorName}
+                repName={vendor.repName}
+                phoneNumber={vendor.phoneNumber}
+                email={vendor.email}
+              />
+            </Link>
+            <button
+              className="delete-button button-container"
+              onClick={() => handleDelete(vendor._id, vendors)}
+            >
+              Delete {vendor.vendorName}
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
