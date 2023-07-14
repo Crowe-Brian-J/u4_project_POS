@@ -6,6 +6,7 @@ import { Product } from '../../../../models'
 const typeEnumValues = Product.schema.path('productType').enumValues
 const alcoholContentEnumValues =
   Product.schema.path('alcoholContent').enumValues
+const activeStatusEnumValues = Product.schema.path('activeStatus').enumValues
 
 const ProductDetails = () => {
   const [productDetails, setProductDetails] = useState({
@@ -126,6 +127,52 @@ const ProductDetails = () => {
               ))}
             </select>
             <label htmlFor="alcoholContent">Alcohol Content:</label> <br />
+            <select
+              className="alcoholContent"
+              name="alcoholContent"
+              value={productDetails.alcoholContent}
+              onChange={handleChange}
+            >
+              {alcoholContentEnumValues.map((enumOption) => (
+                <option key={enumOption} value={enumOption}>
+                  {enumOption}
+                </option>
+              ))}
+            </select>
+            <label htmlFor="taxable">Taxable:</label>
+            <br />
+            <input
+              type="radio"
+              id="taxable-yes"
+              className="taxable"
+              name="taxable"
+              value={true}
+            />
+            <label htmlFor="taxable-yes">Yes</label>
+            <br />
+            <input
+              type="radio"
+              id="taxable-no"
+              className="taxable"
+              name="taxable"
+              value={false}
+            />
+            <label htmlFor="taxable-no">No</label>
+            <br />
+            <label htmlFor="Active Status">Active Status</label>
+            <br />
+            <select
+              className="activeStatus"
+              name="activeStatus"
+              value={productDetails.activeStatus}
+              onChange={handleChange}
+            >
+              {activeStatusEnumValues.map((enumOption) => (
+                <option key={enumOption} value={enumOption}>
+                  {enumOption}
+                </option>
+              ))}
+            </select>
           </form>
         </div>
       </section>
