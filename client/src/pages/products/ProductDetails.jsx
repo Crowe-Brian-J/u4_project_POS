@@ -1,14 +1,17 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Product } from '../../../../models'
+import { Product } from '../../../../models/index'
 
-const typeEnumValues = Product.schema.path('productType').enumValues
-const alcoholContentEnumValues =
-  Product.schema.path('alcoholContent').enumValues
-const activeStatusEnumValues = Product.schema.path('activeStatus').enumValues
+console.log(Product)
 
 const ProductDetails = () => {
+  const typeEnumValues = Product.schema.path('productType').enumValues
+  const alcoholContentEnumValues =
+    Product.schema.path('alcoholContent').enumValues
+  const activeStatusEnumValues = Product.schema.path('activeStatus').enumValues
+  const casePackEnumValues = Product.schema.path('casePack').enumValues
+
   const [productDetails, setProductDetails] = useState({
     name: '',
     description: '',
@@ -28,6 +31,8 @@ const ProductDetails = () => {
       email: ''
     }
   })
+  const [selectedProductType, setSelectedProductType] = useState('')
+  const [unitSizes, setUnitSizes] = useState([])
 
   let { id: productId } = useParams()
 
@@ -46,6 +51,26 @@ const ProductDetails = () => {
   }, [productId])
 
   const navigate = useNavigate()
+
+  const updateUnitSizes = (productType) => {
+    const productTypeSchema = Product.schema.path('productType')
+    const enumValues = productTypeSchema.options.enum
+
+    if (enumValues.includes(productType)) {
+      const unitSizeSchema = Product.schema.path('unitSize')
+      const unitSizeEnum = unitSizeSchema.options.enum
+      const updatedUnitSizes = unitSizeEnum.find(
+        (option) => option.productType === productType
+      )
+    }
+
+    setUnitSizes(updatedUnitSizes)
+  }
+
+  const handleProductTypeChange = (evt) => {
+    setSelectedProductType(evt.target.value)
+    updateUnitSizes(evt.target.value)
+  }
   const handleSubmit = async (evt) => {
     evt.preventDefault()
     try {
@@ -73,6 +98,8 @@ const ProductDetails = () => {
       <section className="details">
         <div className="flex-row space">
           <form onSubmit={handleSubmit}>
+            <label htmlFor="vendor">Vendor:</label>
+            <select name="" id=""></select>
             <label htmlFor="name">Product Name:</label>
             <br />
             <input
@@ -115,14 +142,16 @@ const ProductDetails = () => {
             <label htmlFor="productType">Product Type:</label>
             <br />
             <select
+              id="productType"
               className="productType"
               name="productType"
-              value={productDetails.productType}
-              onChange={handleChange}
+              value={selectedProductType}
+              onChange={handleProductTypeChange}
             >
-              {typeEnumValues.map((enumOption) => (
-                <option key={enumOption} value={enumOption}>
-                  {enumOption}
+              <option value="">Select a Product Type</option>
+              {typeEnumValues.map((option) => (
+                <option key={option} value={option}>
+                  {option}
                 </option>
               ))}
             </select>
@@ -134,7 +163,13 @@ const ProductDetails = () => {
               onChange={handleChange}
             >
               {alcoholContentEnumValues.map((enumOption) => (
-                <option key={enumOption} value={enumOption}>
+                <option
+                  key={enumOption}
+                  id="alcoholContent"
+                  className="alcoholContent"
+                  name="alcoholContent"
+                  value={enumOption}
+                >
                   {enumOption}
                 </option>
               ))}
@@ -173,6 +208,72 @@ const ProductDetails = () => {
                 </option>
               ))}
             </select>
+            <label htmlFor="unitSize">Unit Size:</label>
+            <br />
+            <select
+              name="unitSize"
+              className="unitSize"
+              id="unitSize"
+              value={selectedUnitSize}
+              onChange={handleChange}
+            >
+              <option value="">Select a Unit Size</option>
+              {unitSizes.map((unitSize) => (
+                <option key={unitSize} value={unitSize}>
+                  {unitSize}
+                </option>
+              ))}
+            </select>
+            <label htmlFor="casePack">Case Pack: (How many per case?)</label>
+            <br />
+            <select
+              className="casePack"
+              name="casePack"
+              id="className"
+              value={productDetails.casePack}
+              onChange={handleChange}
+            >
+              {casePackEnumValues.map((enumOption) => (
+                <option
+                  key={enumOption}
+                  id="casePack"
+                  className="casePack"
+                  name="casePack"
+                  value={enumOption}
+                >
+                  {enumOption}
+                </option>
+              ))}
+            </select>
+            <label htmlFor="dietaryRestrictions">Dietary Restrictions:</label>
+            <br />
+            <input
+              type="checkbox"
+              id="dietaryRestrictions"
+              className="dietaryRestrictions"
+              name="dietaryRestrictions"
+              value={productDetails.dietaryRestrictions}
+              onChange={handleChange}
+            />
+            <label htmlFor="Kosher">Kosher</label>
+            <input
+              type="checkbox"
+              id="dietaryRestrictions"
+              className="dietaryRestrictions"
+              name="dietaryRestrictions"
+              value={productDetails.dietaryRestrictions}
+              onChange={handleChange}
+            />
+            <label htmlFor="Organic">Organic</label> <br />
+            <label htmlFor="aisle">Aisle:</label> <br />
+            <input
+              type="number"
+              id="aisle"
+              className="aisle"
+              name="aisle"
+              value={productDetails.aisle}
+              onChange={handleChange}
+            />
           </form>
         </div>
       </section>

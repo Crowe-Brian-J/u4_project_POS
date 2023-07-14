@@ -1,20 +1,11 @@
 const { Schema, mongoose } = require('mongoose')
 
 // Does this belong here? Should this be inside productSchema? I think I had it outside in previous products
-const generateSKU = async (product) => {
-  const prevProduct = await Product.findOne({}, {}, { sort: { createdAt: -1 } })
-  let prevSKU = 0
-  if (prevProduct) {
-    prevSKU = parseInt(prevProduct.sku, 10)
-  }
-  const nextSKU = (prevSKU + 1).toString().padStart(4, '0')
-  product.sku = nextSKU
-}
 
 const productSchema = new Schema(
   {
     name: { type: String, required: true },
-    description: { type: String, required: true },
+    description: { type: String },
     upc: {
       type: Number,
       match: /^(?!0{11})\d{12}$/
@@ -138,9 +129,5 @@ const productSchema = new Schema(
   },
   { timestamps: true }
 )
-
-productSchema.pre('save', async () => {
-  await generateSKU(this)
-})
 
 module.exports = productSchema
