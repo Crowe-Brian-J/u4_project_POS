@@ -51,6 +51,12 @@ const Vendors = () => {
         {/* remove index, change key to vendor.id */}
         {vendors.map((vendor) => (
           <div key={vendor._id}>
+            <button
+              className="delete-button button-container"
+              onClick={() => handleDelete(vendor._id, vendors)}
+            >
+              Delete {vendor.vendorName}
+            </button>
             <Link
               // Don't use leading vendors/anything for link here.
               to={`${vendor._id}`}
@@ -65,12 +71,6 @@ const Vendors = () => {
                 email={vendor.email}
               />
             </Link>
-            <button
-              className="delete-button button-container"
-              onClick={() => handleDelete(vendor._id, vendors)}
-            >
-              Delete {vendor.vendorName}
-            </button>
           </div>
         ))}
       </div>

@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose')
+const { Schema, mongoose } = require('mongoose')
 
 // Does this belong here? Should this be inside productSchema? I think I had it outside in previous products
 const generateSKU = async (product) => {

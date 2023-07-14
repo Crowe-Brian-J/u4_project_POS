@@ -65,12 +65,6 @@ const VendorDetails = () => {
     <div className="vendor-content">
       <section className="details">
         <div className="flex-row space">
-          {/* <VendorForm
-            vendorName={vendorDetails.vendorName}
-            repName={vendorDetails.repName}
-            phoneNumber={vendorDetails.phoneNumber}
-            email={vendorDetails.email}
-          /> */}
           <form onSubmit={handleSubmit}>
             <label htmlFor="vendorName">Vendor Name:</label>
             <br />
