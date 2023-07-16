@@ -1,7 +1,5 @@
 const { Schema, mongoose } = require('mongoose')
 
-// Does this belong here? Should this be inside productSchema? I think I had it outside in previous products
-
 const productSchema = new Schema(
   {
     name: { type: String, required: true },
@@ -47,6 +45,7 @@ const productSchema = new Schema(
           return {
             // Think about importing enums as array of strings
             enum: [
+              'Single',
               '7.5oz',
               '11.5oz',
               '12oz',

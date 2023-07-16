@@ -1,6 +1,7 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import ProductCard from '../../components/ProductCard'
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const Products = () => {
   const [products, setProducts] = useState([])
@@ -32,7 +33,10 @@ const Products = () => {
 
   return (
     <div>
-      <Link to={{ pathname: 'new', state: { products, setProducts } }}>
+      <Link
+        to={{ pathname: 'new', state: { products, setProducts } }}
+        style={{ textDecoration: 'none' }}
+      >
         <button className="add-product">Add a Product</button>
       </Link>
       <div className="products container-grid">

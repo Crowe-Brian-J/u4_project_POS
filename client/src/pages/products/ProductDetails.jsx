@@ -1,17 +1,78 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Product } from '../../../../models/index'
-
-console.log(Product)
 
 const ProductDetails = () => {
-  const typeEnumValues = Product.schema.path('productType').enumValues
-  const alcoholContentEnumValues =
-    Product.schema.path('alcoholContent').enumValues
-  const activeStatusEnumValues = Product.schema.path('activeStatus').enumValues
-  const casePackEnumValues = Product.schema.path('casePack').enumValues
+  // Look at components
+  const typeEnumValues = [
+    'beer',
+    'wine',
+    'liquor',
+    'misc - taxable',
+    'misc - nontaxable',
+    'snacks',
+    'carbonated, nonalcoholic'
+  ]
+  const alcoholContentEnumValues = [
+    '> 36% / 72 proof (Liquor)',
+    '> 14%, < 24% (Wines)',
+    '~12-15% (Malt Beverages)',
+    '~4-14% (Beer)',
+    'Nonalcoholic'
+  ]
+  const beerUnitSizeEnumValues = [
+    'Single',
+    '7.5oz',
+    '11.5oz',
+    '12oz',
+    '16oz',
+    '18oz',
+    '24oz',
+    '40oz',
+    '4pk',
+    '6pk',
+    '8pk',
+    '12pk',
+    '18pk',
+    '24pk',
+    '30pk',
+    '36pk'
+  ]
+  const wineUnitSizeEnumValues = [
+    '187mL',
+    '4pk',
+    '375mL',
+    '500mL',
+    '750mL',
+    '1.5L',
+    '3L',
+    '4.5L',
+    '5L'
+  ]
+  const liquorUnitSizeEnumValues = [
+    '50mL',
+    '100mL',
+    '200mL',
+    '375mL',
+    '750mL',
+    '1L',
+    '1.5L',
+    '1.75L'
+  ]
+  const sodaUnitSizeEnumValues = [
+    'Single (20oz, 2L, etc.)',
+    '4pk',
+    '6pk',
+    '12pk'
+  ]
+  const snackUnitSizeEnumValues = ['0.5oz', '1oz', '8.5oz', '10oz', '13oz']
+  const activeStatusEnumValues = [
+    'active',
+    'inactive (i.e. seasonally unavailable'
+  ]
+  const casePackEnumValues = [1, 2, 4, 6, 8, 10, 12, 24]
 
+  // States
   const [productDetails, setProductDetails] = useState({
     name: '',
     description: '',
@@ -52,25 +113,29 @@ const ProductDetails = () => {
 
   const navigate = useNavigate()
 
+  // Helper Function to update options for unitSizes based on productType
   const updateUnitSizes = (productType) => {
-    const productTypeSchema = Product.schema.path('productType')
-    const enumValues = productTypeSchema.options.enum
-
-    if (enumValues.includes(productType)) {
-      const unitSizeSchema = Product.schema.path('unitSize')
-      const unitSizeEnum = unitSizeSchema.options.enum
-      const updatedUnitSizes = unitSizeEnum.find(
-        (option) => option.productType === productType
-      )
+    if (productType === 'beer') {
+      setUnitSizes(beerUnitSizeEnumValues)
+    } else if (productType === 'wine') {
+      setUnitSizes(wineUnitSizeEnumValues)
+    } else if (productType === 'liquor') {
+      setUnitSizes(liquorUnitSizeEnumValues)
+    } else if (productType === 'carbonated, nonalcoholic') {
+      setUnitSizes(sodaUnitSizeEnumValues)
+    } else if (productType === 'snacks') {
+      setUnitSizes(snackUnitSizeEnumValues)
+    } else {
+      setUnitSizes('Pkg')
     }
-
-    setUnitSizes(updatedUnitSizes)
   }
 
+  // Helper Function to Check on Product Type
   const handleProductTypeChange = (evt) => {
     setSelectedProductType(evt.target.value)
     updateUnitSizes(evt.target.value)
   }
+
   const handleSubmit = async (evt) => {
     evt.preventDefault()
     try {
@@ -100,8 +165,8 @@ const ProductDetails = () => {
           <form onSubmit={handleSubmit}>
             <label htmlFor="vendor">Vendor:</label>
             <select name="" id=""></select>
-            <label htmlFor="name">Product Name:</label>
             <br />
+            <label htmlFor="name">Product Name:</label>
             <input
               type="text"
               className="name"
@@ -140,7 +205,6 @@ const ProductDetails = () => {
             />
             <br />
             <label htmlFor="productType">Product Type:</label>
-            <br />
             <select
               id="productType"
               className="productType"
@@ -154,8 +218,9 @@ const ProductDetails = () => {
                   {option}
                 </option>
               ))}
-            </select>
-            <label htmlFor="alcoholContent">Alcohol Content:</label> <br />
+            </select>{' '}
+            <br />
+            <label htmlFor="alcoholContent">Alcohol Content:</label>
             <select
               className="alcoholContent"
               name="alcoholContent"
@@ -174,28 +239,29 @@ const ProductDetails = () => {
                 </option>
               ))}
             </select>
+            <br />
+            {/* Need to work on this form's display */}
             <label htmlFor="taxable">Taxable:</label>
+            <div>
+              <input
+                type="radio"
+                id="taxable-yes"
+                className="taxable"
+                name="taxable"
+                value={true}
+              />
+              <label htmlFor="taxable-yes">Yes</label>
+              <input
+                type="radio"
+                id="taxable-no"
+                className="taxable"
+                name="taxable"
+                value={false}
+              />
+              <label htmlFor="taxable-no">No</label>
+            </div>
             <br />
-            <input
-              type="radio"
-              id="taxable-yes"
-              className="taxable"
-              name="taxable"
-              value={true}
-            />
-            <label htmlFor="taxable-yes">Yes</label>
-            <br />
-            <input
-              type="radio"
-              id="taxable-no"
-              className="taxable"
-              name="taxable"
-              value={false}
-            />
-            <label htmlFor="taxable-no">No</label>
-            <br />
-            <label htmlFor="Active Status">Active Status</label>
-            <br />
+            <label htmlFor="Active Status">Active Status:</label>
             <select
               className="activeStatus"
               name="activeStatus"
@@ -208,9 +274,10 @@ const ProductDetails = () => {
                 </option>
               ))}
             </select>
+            <br />
             <label htmlFor="unitSize">Unit Size:</label>
             <br />
-            <select
+            {/* <select
               name="unitSize"
               className="unitSize"
               id="unitSize"
@@ -223,9 +290,8 @@ const ProductDetails = () => {
                   {unitSize}
                 </option>
               ))}
-            </select>
+            </select> */}
             <label htmlFor="casePack">Case Pack: (How many per case?)</label>
-            <br />
             <select
               className="casePack"
               name="casePack"
@@ -244,9 +310,9 @@ const ProductDetails = () => {
                   {enumOption}
                 </option>
               ))}
-            </select>
-            <label htmlFor="dietaryRestrictions">Dietary Restrictions:</label>
+            </select>{' '}
             <br />
+            <label htmlFor="dietaryRestrictions">Dietary Restrictions:</label>
             <input
               type="checkbox"
               id="dietaryRestrictions"
@@ -274,6 +340,9 @@ const ProductDetails = () => {
               value={productDetails.aisle}
               onChange={handleChange}
             />
+            <button type="submit" className="submitButton">
+              Update
+            </button>
           </form>
         </div>
       </section>

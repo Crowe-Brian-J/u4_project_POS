@@ -106,7 +106,7 @@ th {
   text-decoration: none;
 }
 
-.vendor-card {
+.vendor-card, .product-card {
   display: flex;
   background-color: #fffafb;
   color:#243a56;
