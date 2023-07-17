@@ -96,15 +96,15 @@ const productSchema = new Schema(
         }
       },
     },
-    enumObject: {
-      "Single": 1,
-      "4pk": 4,
-      "6pk": 6,
-      "12pk": 12,
-      "24pk": 24,
-      "30pk": 30,
-      "36pk": 36,
-    },
+    // enumObject: {
+    //   "Single": 1,
+    //   "4pk": 4,
+    //   "6pk": 6,
+    //   "12pk": 12,
+    //   "24pk": 24,
+    //   "30pk": 30,
+    //   "36pk": 36,
+    // },
     casePack: {
       type: Number,
       enum: [1, 2, 4, 6, 8, 10, 12, 24],

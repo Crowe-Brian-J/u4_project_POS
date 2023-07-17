@@ -1,27 +1,26 @@
-import axios from 'axios'
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const Order = () => {
-  const Orders = () => {
-    // Array of vendors
-    const [vendors, setVendors] = useState([])
-    // Single Vendor Object
-    const [vendor, setVendor] = useState({})
-    // Array of Products
-    const [products, setProducts] = useState([])
+  // Array of vendors
+  const [vendors, setVendors] = useState([]);
+  // Single Vendor Object
+  const [vendor, setVendor] = useState({});
+  // Array of Products
+  const [products, setProducts] = useState([]);
 
-    const getVendors = async () => {
-      try {
-        let res = await axios.get('http://localhost:3001/vendors')
-        setVendors(res.data)
-      } catch (err) {
-        console.error(err)
-      }
+  const getVendors = async () => {
+    try {
+      let res = await axios.get("http://localhost:3001/vendors");
+      setVendors(res.data);
+    } catch (err) {
+      console.error(err);
     }
+  };
 
-    useEffect(() => {
-      getVendors()
-    }, [])
-  }
+  useEffect(() => {
+    getVendors();
+  }, []);
 
   return (
     <div>
@@ -37,8 +36,15 @@ const Order = () => {
             name="vendor-name"
             id="vendor-name"
             value={vendor.vendorName}
-          ></select>
-          &emsp;
+          >
+            <option value="">Select a Vendor</option>
+            {vendors.map((selectVendor) => (
+              <option key={selectVendor._id} value={selectVendor.vendorName}>
+                {selectVendor.vendorName}
+              </option>
+            ))}
+          </select>
+          <br />
           <label htmlFor="item-name">Item Name:&nbsp;</label>
           <input type="text" className="item-name" />
           &emsp;
@@ -47,7 +53,7 @@ const Order = () => {
         </div>
         <br />
         <br />
-        <table className="order-table">
+        {/* <table className="order-table">
           <tr>
             <th>Here is a table.</th>
             <th>Here's another topper.</th>
@@ -56,10 +62,10 @@ const Order = () => {
             <td>Here's the table's piece.</td>
             <td>Here's another piece.</td>
           </tr>
-        </table>
+        </table> */}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Order
+export default Order;
