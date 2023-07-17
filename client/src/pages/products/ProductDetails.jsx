@@ -163,7 +163,7 @@ const ProductDetails = () => {
       <section className="details">
         <div className="flex-row space">
           {productDetails.qtyOnHand ? (
-            <p>In Stock: {productDetails.qtyOnHand}</p>
+            <p className="in-stock">In Stock: {productDetails.qtyOnHand}</p>
           ) : null}
           <form onSubmit={handleSubmit}>
             <label htmlFor="vendor">Vendor:</label>

@@ -170,3 +170,8 @@ button {
   justify-content: center;
   align-items: center;
 }
+
+.in-stock {
+  text-align: center;
+  color:#86bbd8
+}
