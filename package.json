@@ -23,7 +23,8 @@
   "devDependencies": {
     "nodemon": "^2.0.19"
   },
-    "prettier": {
-      "quoteProps": "consistent"
-    }
+  "prettier": {
+    "semi": false,
+    "quoteProps": "consistent"
+  }
 }

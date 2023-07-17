@@ -1,29 +1,29 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 const Inventory = () => {
   // Array of Products
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([])
 
   // Get Helper Functions
   const getProducts = async () => {
     try {
-      await axios.get("http://localhost:3001/products").then((response) => {
+      await axios.get("http://localhost:3001/products").then((res) => {
         // Filter products for items with a qtyOnHand > and < 0
-        const filteredProducts = response.data.filter(
+        const filteredProducts = res.data.filter(
           (product) => product.qtyOnHand !== 0,
-        );
-        setProducts(filteredProducts);
-      });
+        )
+        setProducts(filteredProducts)
+      })
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
-  };
+  }
 
   useEffect(() => {
     // Possibly useEffect to filter the products?
-    getProducts();
-  }, []);
+    getProducts()
+  }, [])
 
   return (
     <div className="inventory-wrapper">
@@ -46,6 +46,6 @@ const Inventory = () => {
         </tbody>
       </table>
     </div>
-  );
-};
-export default Inventory;
+  )
+}
+export default Inventory

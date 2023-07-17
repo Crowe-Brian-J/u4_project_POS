@@ -1,26 +1,52 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import axios from "axios"
+import { useState, useEffect } from "react"
 
 const Order = () => {
   // Array of vendors
-  const [vendors, setVendors] = useState([]);
+  const [vendors, setVendors] = useState([])
   // Single Vendor Object
-  const [vendor, setVendor] = useState({});
+  const [selectedVendor, setSelectedVendor] = useState({})
   // Array of Products
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([])
 
   const getVendors = async () => {
     try {
-      let res = await axios.get("http://localhost:3001/vendors");
-      setVendors(res.data);
+      let res = await axios.get("http://localhost:3001/vendors")
+      setVendors(res.data)
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
-  };
+  }
+  const getProducts = async () => {
+    try {
+      console.log(selectedVendor._id)
+      console.log(selectedVendor.vendorName)
+      await axios.get("http://localhost:3001/products").then((res) => {
+        // Filter products with selectedVendor
+        const filteredProducts = res.data.filter(
+          (product) => product.vendor === selectedVendor._id,
+        )
+        console.log(filteredProducts)
+        setProducts(filteredProducts)
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   useEffect(() => {
-    getVendors();
-  }, []);
+    getVendors()
+    getProducts()
+  }, [selectedVendor])
+
+  const handleVendorChange = (evt) => {
+    const selectedValue = evt.target.value
+    // adding this to try and give it more time to refresh
+    const selectedVendorObj = selectedValue
+      ? vendors.find((vendor) => vendor._id === selectedValue)
+      : {}
+    setSelectedVendor(selectedVendorObj)
+  }
 
   return (
     <div>
@@ -35,11 +61,12 @@ const Order = () => {
             className="vendor-name"
             name="vendor-name"
             id="vendor-name"
-            value={vendor.vendorName}
+            value={selectedVendor._id}
+            onChange={handleVendorChange}
           >
             <option value="">Select a Vendor</option>
             {vendors.map((selectVendor) => (
-              <option key={selectVendor._id} value={selectVendor.vendorName}>
+              <option key={selectVendor._id} value={selectVendor._id}>
                 {selectVendor.vendorName}
               </option>
             ))}
@@ -53,6 +80,9 @@ const Order = () => {
         </div>
         <br />
         <br />
+        {products.map((product) => (
+          <div className="product-map">{product.name}</div>
+        ))}
         {/* <table className="order-table">
           <tr>
             <th>Here is a table.</th>
@@ -65,7 +95,7 @@ const Order = () => {
         </table> */}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Order;
+export default Order
