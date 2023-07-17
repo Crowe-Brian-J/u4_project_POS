@@ -1,10 +1,10 @@
-const { Schema } = require("mongoose")
+const { Schema, mongoose } = require("mongoose")
 
 const orderSchema = new Schema(
   {
     updatedDate: { type: Date, default: Date.now },
     received: { type: Boolean, required: true },
-    receivedDate: { type: Date, default: Date.now },
+    receivedDate: { type: Date, default: null },
     vendor: {
       type: mongoose.ObjectId,
       ref: "Vendor",
@@ -14,8 +14,15 @@ const orderSchema = new Schema(
       List of Products & Product Quantities
     */
     items: {
-      type: [],
-      default: [],
+      product: {
+        type: mongoose.ObjectId,
+        ref: "Product",
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        default: 0,
+      },
     },
   },
   { timestamps: true },
