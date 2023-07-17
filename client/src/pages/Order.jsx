@@ -8,6 +8,8 @@ const Order = () => {
   const [selectedVendor, setSelectedVendor] = useState({})
   // Array of Products
   const [products, setProducts] = useState([])
+  // Array of CreateOrder
+  const [order, setOrder] = useState([])
 
   const getVendors = async () => {
     try {
@@ -19,14 +21,11 @@ const Order = () => {
   }
   const getProducts = async () => {
     try {
-      console.log(selectedVendor._id)
-      console.log(selectedVendor.vendorName)
       await axios.get("http://localhost:3001/products").then((res) => {
         // Filter products with selectedVendor
         const filteredProducts = res.data.filter(
           (product) => product.vendor === selectedVendor._id,
         )
-        console.log(filteredProducts)
         setProducts(filteredProducts)
       })
     } catch (err) {
@@ -51,39 +50,51 @@ const Order = () => {
   return (
     <div>
       <div className="order">
-        <h1>Order</h1>
+        <h1>Create Order</h1>
       </div>
-      <div className="order-form">
-        <div>
-          <label htmlFor="vendor-name">Vendor:&nbsp;</label>
-          {/* <input type="select" className="vendor-name" /> */}
-          <select
-            className="vendor-name"
-            name="vendor-name"
-            id="vendor-name"
-            value={selectedVendor._id}
-            onChange={handleVendorChange}
-          >
-            <option value="">Select a Vendor</option>
-            {vendors.map((selectVendor) => (
-              <option key={selectVendor._id} value={selectVendor._id}>
-                {selectVendor.vendorName}
-              </option>
-            ))}
-          </select>
+      <form action="">
+        <div className="order-form">
+          <>
+            <label htmlFor="vendor-name">Vendor:&nbsp;</label>
+            {/* <input type="select" className="vendor-name" /> */}
+            <select
+              className="vendor-name"
+              name="vendor-name"
+              id="vendor-name"
+              value={selectedVendor._id}
+              onChange={handleVendorChange}
+            >
+              <option value="">Select a Vendor</option>
+              {vendors.map((selectVendor) => (
+                <option key={selectVendor._id} value={selectVendor._id}>
+                  {selectVendor.vendorName}
+                </option>
+              ))}
+            </select>
+            <br />
+            <table>
+              <thead>
+                <tr>
+                  <th>Product Name:</th>
+                  <th>SKU:</th>
+                  <th>QTY:</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product) => (
+                  <tr key={product._id}>
+                    <td>{product.name}</td>
+                    <td className="center-this">{product.sku}</td>
+                    <td>
+                      <input type="number" />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
           <br />
-          <label htmlFor="item-name">Item Name:&nbsp;</label>
-          <input type="text" className="item-name" />
-          &emsp;
-          <label htmlFor="item-sku">Item SKU:&nbsp;</label>
-          <input type="text" className="item-sku" />
-        </div>
-        <br />
-        <br />
-        {products.map((product) => (
-          <div className="product-map">{product.name}</div>
-        ))}
-        {/* <table className="order-table">
+          {/* <table className="order-table">
           <tr>
             <th>Here is a table.</th>
             <th>Here's another topper.</th>
@@ -93,7 +104,9 @@ const Order = () => {
             <td>Here's another piece.</td>
           </tr>
         </table> */}
-      </div>
+        </div>
+        <button type="submit">Create Order</button>
+      </form>
     </div>
   )
 }
