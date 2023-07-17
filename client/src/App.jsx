@@ -1,16 +1,17 @@
-import './App.css'
-import { Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import Order from './pages/Order'
-import Vendors from './pages/vendors/Vendors'
-import VendorDetails from './pages/vendors/VendorDetails'
-import NewVendor from './pages/vendors/NewVendor'
-import Products from './pages/products/Products'
-import ProductDetails from './pages/products/ProductDetails'
-import NewProduct from './pages/products/NewProduct'
-import Inventory from './pages/Inventory'
-import Search from './components/Search'
-import Navbar from './components/Navbar'
+import "./App.css"
+import { Routes, Route } from "react-router-dom"
+import Home from "./pages/Home"
+import Orders from "./pages/Orders"
+import NewOrder from "./pages/NewOrder"
+import Vendors from "./pages/vendors/Vendors"
+import VendorDetails from "./pages/vendors/VendorDetails"
+import NewVendor from "./pages/vendors/NewVendor"
+import Products from "./pages/products/Products"
+import ProductDetails from "./pages/products/ProductDetails"
+import NewProduct from "./pages/products/NewProduct"
+import Inventory from "./pages/Inventory"
+import Search from "./components/Search"
+import Navbar from "./components/Navbar"
 
 const App = () => {
   return (
@@ -22,7 +23,8 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/order" element={<Order />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/orders/new" element={<NewOrder />} />
           <Route path="/vendors" element={<Vendors />} />
           <Route path="/vendors/new" element={<NewVendor />} />
           <Route path="/vendors/:id" element={<VendorDetails />} />

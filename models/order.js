@@ -1,4 +1,4 @@
-const { Schema } = require('mongoose')
+const { Schema } = require("mongoose")
 
 const orderSchema = new Schema(
   {
@@ -7,14 +7,18 @@ const orderSchema = new Schema(
     receivedDate: { type: Date, default: Date.now },
     vendor: {
       type: mongoose.ObjectId,
-      ref: 'Vendor',
-      required: true
-    }
+      ref: "Vendor",
+      required: true,
+    },
     /*
       List of Products & Product Quantities
     */
+    items: {
+      type: [],
+      default: [],
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 )
 
 module.exports = orderSchema

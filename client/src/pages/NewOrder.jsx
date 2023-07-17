@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
 
-const Order = () => {
+const NewOrder = () => {
   // Array of vendors
   const [vendors, setVendors] = useState([])
   // Single Vendor Object
@@ -111,4 +111,4 @@ const Order = () => {
   )
 }
 
-export default Order
+export default NewOrder
