@@ -32,8 +32,8 @@ const NewVendor = () => {
       setVendors(newList)
       setFormState(initialState)
       navigate('/vendors')
-    } catch (error) {
-      console.error(error)
+    } catch (err) {
+      console.error(err)
     }
   }
 
