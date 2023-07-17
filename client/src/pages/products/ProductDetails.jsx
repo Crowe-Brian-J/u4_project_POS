@@ -312,6 +312,7 @@ const ProductDetails = () => {
               ))}
             </select>{' '}
             <br />
+            {/* How do I uncenter these? */}
             <label htmlFor="dietaryRestrictions">Dietary Restrictions:</label>
             <input
               type="checkbox"

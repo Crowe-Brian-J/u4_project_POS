@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-const NewVendor = ({ location }) => {
+const NewVendor = () => {
   let initialState = {
     vendorName: '',
     repName: '',
@@ -10,8 +10,7 @@ const NewVendor = ({ location }) => {
     email: ''
   }
 
-  location = useLocation()
-  const { vendors, setVendors } = location.state || {
+  const { vendors, setVendors } = {
     vendors: [],
     setVendors: () => {}
   }
