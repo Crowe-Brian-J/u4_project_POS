@@ -68,7 +68,7 @@ const ProductDetails = () => {
   const snackUnitSizeEnumValues = ['0.5oz', '1oz', '8.5oz', '10oz', '13oz']
   const activeStatusEnumValues = [
     'active',
-    'inactive (i.e. seasonally unavailable'
+    'inactive (i.e. seasonally unavailable)'
   ]
   const casePackEnumValues = [1, 2, 4, 6, 8, 10, 12, 24]
 
@@ -240,7 +240,7 @@ const ProductDetails = () => {
               ))}
             </select>
             <br />
-            {/* Need to work on this form's display */}
+            {/* Need to work on this form's display. Maybe Change to Yes or No, default No*/}
             <label htmlFor="taxable">Taxable:</label>
             <div>
               <input
@@ -261,7 +261,7 @@ const ProductDetails = () => {
               <label htmlFor="taxable-no">No</label>
             </div>
             <br />
-            <label htmlFor="Active Status">Active Status:</label>
+            <label htmlFor="activeStatus">Active Status:</label>
             <select
               className="activeStatus"
               name="activeStatus"
@@ -295,7 +295,7 @@ const ProductDetails = () => {
             <select
               className="casePack"
               name="casePack"
-              id="className"
+              id="casePack"
               value={productDetails.casePack}
               onChange={handleChange}
             >
