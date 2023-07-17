@@ -162,6 +162,9 @@ const ProductDetails = () => {
     <div className="product-content">
       <section className="details">
         <div className="flex-row space">
+          {productDetails.qtyOnHand ? (
+            <p>In Stock: {productDetails.qtyOnHand}</p>
+          ) : null}
           <form onSubmit={handleSubmit}>
             <label htmlFor="vendor">Vendor:</label>
             <select name="" id=""></select>

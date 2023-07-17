@@ -34,3 +34,33 @@ const Order = () => {
 }
 
 export default Order
+
+// const Orders = () => {
+//   // Array of vendors
+//   const [vendors, setVendors] = useState([])
+//   // Single Vendor Object
+//   const [vendor, setVendor] = useState({})
+//   // Array of Products
+//   const [products, setProducts] = useState([])
+
+//   const getVendors = async () => {
+//     try {
+//       let res = await axios.get('http://localhost:3001/vendors')
+//       setVendors(res.data)
+//     } catch (err) {
+//       console.error(err)
+//     }
+//   }
+//   const getProducts = async () => {
+//     try {
+//       let res = await axios.get('')
+//       setVendor(res.data)
+//     } catch (err) {
+//       console.error(err)
+//     }
+//   }
+
+//   useEffect(() => {
+//     getVendors()
+//   }, [])
+// }

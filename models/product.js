@@ -124,6 +124,9 @@ const productSchema = new Schema(
       type: mongoose.ObjectId,
       ref: 'Vendor',
       required: true
+    },
+    qtyOnHand: {
+      type: Number
     }
   },
   { timestamps: true }

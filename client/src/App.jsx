@@ -8,6 +8,7 @@ import NewVendor from './pages/vendors/NewVendor'
 import Products from './pages/products/Products'
 import ProductDetails from './pages/products/ProductDetails'
 import NewProduct from './pages/products/NewProduct'
+import Inventory from './pages/Inventory'
 import Search from './components/Search'
 import Navbar from './components/Navbar'
 
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/products" element={<Products />} />
           <Route path="/products/new" element={<NewProduct />} />
           <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="inventory" element={<Inventory />} />
         </Routes>
       </main>
     </div>
