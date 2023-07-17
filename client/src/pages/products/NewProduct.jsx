@@ -23,13 +23,6 @@ const NewProduct = () => {
   ]
   const beerUnitSizeEnumValues = [
     'Single',
-    '7.5oz',
-    '11.5oz',
-    '12oz',
-    '16oz',
-    '18oz',
-    '24oz',
-    '40oz',
     '4pk',
     '6pk',
     '8pk',

@@ -1,4 +1,4 @@
-const { Schema, mongoose } = require('mongoose')
+const { Schema, mongoose } = require("mongoose");
 
 const productSchema = new Schema(
   {
@@ -6,130 +6,132 @@ const productSchema = new Schema(
     description: { type: String },
     upc: {
       type: Number,
-      match: /^(?!0{11})\d{12}$/
+      match: /^(?!0{11})\d{12}$/,
     },
     sku: { type: String, unique: true },
     productType: {
       type: String,
       enum: [
-        'beer',
-        'wine',
-        'liquor',
-        'misc - taxable',
-        'misc - nontaxable',
-        'snacks',
-        'carbonated, nonalcoholic'
+        "beer",
+        "wine",
+        "liquor",
+        "misc - taxable",
+        "misc - nontaxable",
+        "snacks",
+        "carbonated, nonalcoholic",
       ],
-      required: true
+      required: true,
     },
     alcoholContent: {
       type: String,
       enum: [
-        '> 36% / 72 proof (Liquor)',
-        '> 14%, < 24% (Wines)',
-        '~12-15% (Malt Beverages)',
-        '~4-14% (Beer)',
-        'Nonalcoholic'
-      ]
+        "> 36% / 72 proof (Liquor)",
+        "> 14%, < 24% (Wines)",
+        "~12-15% (Malt Beverages)",
+        "~4-14% (Beer)",
+        "Nonalcoholic",
+      ],
     },
     taxable: { type: Boolean, default: false, required: true },
     activeStatus: {
       type: String,
-      default: 'active',
-      enum: ['active', 'inactive (i.e. seasonally unavailable)']
+      default: "active",
+      enum: ["active", "inactive (i.e. seasonally unavailable)"],
     },
     unitSize: {
       type: String,
       required: () => {
-        if (this.productType === 'beer') {
+        if (this.productType === "beer") {
           return {
-            // Think about importing enums as array of strings
+            // Think about importing enums as array of strings/key value for something to process for deposit
             enum: [
-              'Single',
-              '7.5oz',
-              '11.5oz',
-              '12oz',
-              '16oz',
-              '18oz',
-              '24oz',
-              '40oz',
-              '4pk',
-              '6pk',
-              '8pk',
-              '12pk',
-              '18pk',
-              '24pk',
-              '30pk',
-              '36pk'
-            ]
-          }
-        } else if (this.productType === 'wine') {
+              "Single",
+              "4pk",
+              "6pk",
+              "8pk",
+              "12pk",
+              "18pk",
+              "24pk",
+              "30pk",
+              "36pk",
+            ],
+          };
+        } else if (this.productType === "wine") {
           return {
             enum: [
-              '187mL',
-              '4pk',
-              '375mL',
-              '500mL',
-              '750mL',
-              '1.5L',
-              '3L',
-              '4.5L',
-              '5L'
-            ]
-          }
-        } else if (this.productType === 'liquor') {
+              "187mL",
+              "4pk",
+              "375mL",
+              "500mL",
+              "750mL",
+              "1.5L",
+              "3L",
+              "4.5L",
+              "5L",
+            ],
+          };
+        } else if (this.productType === "liquor") {
           return {
             enum: [
-              '50mL',
-              '100mL',
-              '200mL',
-              '375mL',
-              '750mL',
-              '1L',
-              '1.5L',
-              '1.75L'
-            ]
-          }
-        } else if (this.productType === 'carbonated, nonalcoholic') {
+              "50mL",
+              "100mL",
+              "200mL",
+              "375mL",
+              "750mL",
+              "1L",
+              "1.5L",
+              "1.75L",
+            ],
+          };
+        } else if (this.productType === "carbonated, nonalcoholic") {
           return {
-            enum: ['Single (20oz, 2L, etc.)', '4pk', '6pk', '12pk']
-          }
-        } else if (this.productType === 'snacks') {
+            enum: ["Single", "4pk", "6pk", "12pk"],
+          };
+        } else if (this.productType === "snacks") {
           return {
-            enum: ['0.5oz', '1oz', '8.5oz', '10oz', '13oz']
-          }
+            enum: ["0.5oz", "1oz", "8.5oz", "10oz", "13oz"],
+          };
         } else {
-          return 'Pkg'
+          return "Pkg";
         }
-      }
+      },
+    },
+    enumObject: {
+      "Single": 1,
+      "4pk": 4,
+      "6pk": 6,
+      "12pk": 12,
+      "24pk": 24,
+      "30pk": 30,
+      "36pk": 36,
     },
     casePack: {
       type: Number,
       enum: [1, 2, 4, 6, 8, 10, 12, 24],
-      required: true
+      required: true,
     },
     dietaryRestrictions: {
       type: [
         {
           type: String,
-          enum: ['Kosher', 'Organic']
-        }
+          enum: ["Kosher", "Organic"],
+        },
       ],
-      default: []
+      default: [],
     },
     aisle: {
-      type: Number
+      type: Number,
     },
     vendor: {
       type: mongoose.ObjectId,
-      ref: 'Vendor',
-      required: true
+      ref: "Vendor",
+      required: true,
     },
     qtyOnHand: {
-      type: Number
-    }
+      type: Number,
+    },
   },
-  { timestamps: true }
-)
+  { timestamps: true },
+);
 
-module.exports = productSchema
+module.exports = productSchema;

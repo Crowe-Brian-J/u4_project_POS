@@ -1,4 +1,28 @@
+import axios from 'axios'
+
 const Order = () => {
+  const Orders = () => {
+    // Array of vendors
+    const [vendors, setVendors] = useState([])
+    // Single Vendor Object
+    const [vendor, setVendor] = useState({})
+    // Array of Products
+    const [products, setProducts] = useState([])
+
+    const getVendors = async () => {
+      try {
+        let res = await axios.get('http://localhost:3001/vendors')
+        setVendors(res.data)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
+    useEffect(() => {
+      getVendors()
+    }, [])
+  }
+
   return (
     <div>
       <div className="order">
@@ -6,9 +30,14 @@ const Order = () => {
       </div>
       <div className="order-form">
         <div>
-          {/* Change from p to input */}
           <label htmlFor="vendor-name">Vendor:&nbsp;</label>
-          <input type="select" className="vendor-name" />
+          {/* <input type="select" className="vendor-name" /> */}
+          <select
+            className="vendor-name"
+            name="vendor-name"
+            id="vendor-name"
+            value={vendor.vendorName}
+          ></select>
           &emsp;
           <label htmlFor="item-name">Item Name:&nbsp;</label>
           <input type="text" className="item-name" />
@@ -34,33 +63,3 @@ const Order = () => {
 }
 
 export default Order
-
-// const Orders = () => {
-//   // Array of vendors
-//   const [vendors, setVendors] = useState([])
-//   // Single Vendor Object
-//   const [vendor, setVendor] = useState({})
-//   // Array of Products
-//   const [products, setProducts] = useState([])
-
-//   const getVendors = async () => {
-//     try {
-//       let res = await axios.get('http://localhost:3001/vendors')
-//       setVendors(res.data)
-//     } catch (err) {
-//       console.error(err)
-//     }
-//   }
-//   const getProducts = async () => {
-//     try {
-//       let res = await axios.get('')
-//       setVendor(res.data)
-//     } catch (err) {
-//       console.error(err)
-//     }
-//   }
-
-//   useEffect(() => {
-//     getVendors()
-//   }, [])
-// }

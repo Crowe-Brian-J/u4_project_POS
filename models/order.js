@@ -4,9 +4,13 @@ const orderSchema = new Schema(
   {
     updatedDate: { type: Date, default: Date.now },
     received: { type: Boolean, required: true },
-    receivedDate: { type: Date, default: Date.now }
+    receivedDate: { type: Date, default: Date.now },
+    vendor: {
+      type: mongoose.ObjectId,
+      ref: 'Vendor',
+      required: true
+    }
     /*
-      Vendor as FK -> Use List of Products that belong to vendors to validate order
       List of Products & Product Quantities
     */
   },

@@ -23,7 +23,6 @@ const Inventory = () => {
   useEffect(() => {
     // Possibly useEffect to filter the products?
     getProducts()
-    console.log(products)
   }, [])
 
   return (
