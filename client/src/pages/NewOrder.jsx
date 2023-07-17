@@ -56,7 +56,6 @@ const NewOrder = () => {
         <div className="order-form">
           <>
             <label htmlFor="vendor-name">Vendor:&nbsp;</label>
-            {/* <input type="select" className="vendor-name" /> */}
             <select
               className="vendor-name"
               name="vendor-name"
