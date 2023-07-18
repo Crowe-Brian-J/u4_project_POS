@@ -62,9 +62,17 @@ const NewOrder = () => {
     const orderItems = []
     products.forEach((product) => {
       const productId = product._id
+      const productCasePack = product.casePack
+      const productName = product.name
+      console.log(productName)
       const quantity = parseInt(quantities[productId] || 0, 10)
       if (quantity > 0) {
-        orderItems.push({ product: productId, quantity: quantity })
+        orderItems.push({
+          product: productId,
+          name: productName,
+          quantity: quantity,
+          casePack: parseInt(productCasePack),
+        })
       }
     })
 
@@ -74,7 +82,7 @@ const NewOrder = () => {
         vendor: selectedVendor._id,
         items: orderItems,
       }
-      console.log(newOrder.vendor)
+      console.log(newOrder.items)
 
       try {
         await axios.post("http://localhost:3001/orders", newOrder)

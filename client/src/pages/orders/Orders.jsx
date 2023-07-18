@@ -71,56 +71,23 @@ const Orders = () => {
         </thead>
         <tbody>
           {orders.reverse().map((order) => (
-            <tr>
+            <tr key={order._id}>
               <td>
                 {!order.received && (
                   <button
-                    className="delete-button"
+                    className="delete-button smaller-button"
                     onClick={() => handleDelete(order._id)}
                   >
                     X
                   </button>
                 )}
               </td>
+              <td>{getVendorName(order._id)}</td>
+              <td>{new Date(order.updatedDate).toLocaleDateString()}</td>
+              <td>{new Date(order.updatedDate).toLocaleTimeString()}</td>
+              <td>{order.received}</td>
               <td>
                 <Link
-                  key={order._id}
-                  to={`/orders/${order._id}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {getVendorName(order._id)}
-                </Link>
-              </td>
-              <td>
-                <Link
-                  key={order._id}
-                  to={`/orders/${order._id}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {new Date(order.updatedDate).toLocaleDateString()}
-                </Link>
-              </td>
-              <td>
-                <Link
-                  key={order._id}
-                  to={`/orders/${order._id}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {new Date(order.updatedDate).toLocaleTimeString()}
-                </Link>
-              </td>
-              <td>
-                <Link
-                  key={order._id}
-                  to={`/orders/${order._id}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {order.received}
-                </Link>
-              </td>
-              <td>
-                <Link
-                  key={order._id}
                   to={`/orders/${order._id}`}
                   style={{ textDecoration: "none", color: "inherit" }}
                 >

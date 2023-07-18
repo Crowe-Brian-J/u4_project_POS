@@ -21,10 +21,12 @@ const orderSchema = new Schema(
             ref: "Product",
             required: true,
           },
+          name: { type: String },
           quantity: {
             type: Number,
             default: 0,
           },
+          casePack: { type: Number },
         },
       ],
       default: [], // Set a default empty array for the items field

@@ -98,6 +98,20 @@ app.put("/products/:id", async (req, res) => {
     res.status(500).send("An error occurred while updating the product!")
   }
 })
+app.patch("/products/:id", async (req, res) => {
+  const id = req.params.id
+  const { qtyOnHand } = req.body
+  try {
+    const productUpdate = await Product.findByIdAndUpdate(id, { qtyOnHand })
+    if (!productUpdate) {
+      return res.status(404).send("Product not found!")
+    }
+    res.send(productUpdate)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("An error occurred while updating the product!")
+  }
+})
 app.delete("/products/:id", async (req, res) => {
   const id = req.params.id
   try {
@@ -141,6 +155,37 @@ app.put("/orders/:id", async (req, res) => {
   } catch (error) {
     console.error(error)
     res.status(500).send("An error occurred while updating the order!")
+  }
+})
+app.patch("/orders/:id", async (req, res) => {
+  const id = req.params.id
+  const { received, receivedDate } = req.body
+  try {
+    const orderUpdate = await Order.findByIdAndUpdate(
+      id,
+      { received, receivedDate },
+      { new: true },
+    )
+    if (!orderUpdate) {
+      return res.status(404).send("Order not found!")
+    }
+    res.send(orderUpdate)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("An error occurred while updating the order!")
+  }
+})
+app.delete("/orders/:id", async (req, res) => {
+  const id = req.params.id
+  try {
+    const deleteOrder = await Order.findByIdAndDelete(id)
+    if (!deleteOrder) {
+      return res.status(404).send("Order not found!")
+    }
+    res.send("Order deleted successfully!")
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("Server Error During Delete!")
   }
 })
 

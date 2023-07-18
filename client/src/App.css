@@ -139,6 +139,10 @@ input {
   box-sizing: border-box;
 }
 
+.smaller-button {
+  width: 5vh !important;
+}
+
 button {
   display: grid;
   font-family: 'Lato', sans-serif;
