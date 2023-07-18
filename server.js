@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3001
 const db = require("./db")
 
 // I do not have models yet
-const { Vendor, Product, Order } = require("./models")
+const { Vendor, Product, Order, Transaction } = require("./models")
 
 const app = express()
 
@@ -188,6 +188,41 @@ app.delete("/orders/:id", async (req, res) => {
     res.status(500).send("Server Error During Delete!")
   }
 })
+
+// transaction routes
+app.get("/transactions", async (req, res) => {
+  let transactions = await Transaction.find({})
+  res.send(transactions)
+})
+app.get("/transactions/:id", async (req, res) => {
+  const id = req.params.id
+  let transaction = await Transaction.findById(id)
+  res.send(transaction)
+})
+app.post("/transactions", async (req, res) => {
+  let newTransaction = await Transaction.create(req.body)
+  res.send(newTransaction)
+})
+app.put("/transactions/:id", async (req, res) => {
+  const id = req.params.id
+  let updateTransaction = req.body
+  try {
+    const transactionUpdate = await Transaction.findOneAndUpdate(
+      { _id: id },
+      updateTransaction,
+      { new: true },
+    )
+    if (transactionUpdate) {
+      res.send(updateTransaction)
+    } else {
+      res.status(404).send("Transaction not found!")
+    }
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("An error occurred while updating the transaction!")
+  }
+})
+// I dont' think it makes sense to delete a transaction, ever
 
 app.listen(PORT, () => {
   console.log("Connected to port: ", PORT)

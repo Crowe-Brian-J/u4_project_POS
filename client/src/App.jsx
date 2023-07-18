@@ -11,14 +11,12 @@ import Products from "./pages/products/Products"
 import ProductDetails from "./pages/products/ProductDetails"
 import NewProduct from "./pages/products/NewProduct"
 import Inventory from "./pages/Inventory"
-import Search from "./components/Search"
 import Navbar from "./components/Navbar"
 
 const App = () => {
   return (
     <div className="App">
       <header className="top-bar">
-        <Search />
         <Navbar />
       </header>
       <main>
