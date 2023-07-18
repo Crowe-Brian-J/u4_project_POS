@@ -1,13 +1,15 @@
-const Total = () => {
+const Total = (props) => {
+  // props.subtotal, props.tax, props.deposit, props.total, props.calculateTotal, props.handlePayment
   return (
     <div className="bottom-total">
       <div>
-        <h5>Subtotal: $10.75</h5>
-        <h5>Tax: $0.00</h5>
-        <h5>Deposit: $0.20</h5>
+        <h5>Subtotal: ${props.subtotal.toFixed(2)}</h5>
+        <h5>Tax: ${props.tax.toFixed(2)}</h5>
+        {/* .toFixed(2) for uniformity */}
+        <h5>Deposit: ${props.deposit.toFixed(2)}</h5>
       </div>
       <div>
-        <h1>Total: $10.95</h1>
+        <h1>Total: ${props.total.toFixed(2)}</h1>
         <button className="pay-button">
           <strong>Cash</strong>
         </button>
