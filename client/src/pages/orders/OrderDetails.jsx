@@ -39,7 +39,7 @@ const OrderDetails = () => {
         received: true,
         receivedDate: dateTime,
       })
-      const updateProductPromises = orderDetails.items.forEach(async (item) => {
+      const updateProductPromises = orderDetails.items.map(async (item) => {
         try {
           const product = await axios.get(
             `http://localhost:3001/products/${item.product}`,
