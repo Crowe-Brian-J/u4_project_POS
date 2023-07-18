@@ -71,7 +71,7 @@ const Orders = () => {
         </thead>
         <tbody>
           {orders.reverse().map((order) => (
-            <tr key={order._id}>
+            <tr>
               <td>
                 {!order.received && (
                   <button
@@ -82,11 +82,51 @@ const Orders = () => {
                   </button>
                 )}
               </td>
-              <td>{getVendorName(order._id)}</td>
-              <td>{new Date(order.updatedDate).toLocaleDateString()}</td>
-              <td>{new Date(order.updatedDate).toLocaleTimeString()}</td>
-              <td>{order.received}</td>
-              <td>{order._id}</td>
+              <td>
+                <Link
+                  key={order._id}
+                  to={`/orders/${order._id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  {getVendorName(order._id)}
+                </Link>
+              </td>
+              <td>
+                <Link
+                  key={order._id}
+                  to={`/orders/${order._id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  {new Date(order.updatedDate).toLocaleDateString()}
+                </Link>
+              </td>
+              <td>
+                <Link
+                  key={order._id}
+                  to={`/orders/${order._id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  {new Date(order.updatedDate).toLocaleTimeString()}
+                </Link>
+              </td>
+              <td>
+                <Link
+                  key={order._id}
+                  to={`/orders/${order._id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  {order.received}
+                </Link>
+              </td>
+              <td>
+                <Link
+                  key={order._id}
+                  to={`/orders/${order._id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  {order._id}
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>
