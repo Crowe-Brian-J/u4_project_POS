@@ -3,7 +3,7 @@ const { Schema, mongoose } = require("mongoose")
 const orderSchema = new Schema(
   {
     updatedDate: { type: Date, default: Date.now },
-    received: { type: Boolean, required: true },
+    received: { type: Boolean, required: true, default: false },
     receivedDate: { type: Date, default: null },
     vendor: {
       type: mongoose.ObjectId,
@@ -14,15 +14,20 @@ const orderSchema = new Schema(
       List of Products & Product Quantities
     */
     items: {
-      product: {
-        type: mongoose.ObjectId,
-        ref: "Product",
-        required: true,
-      },
-      quantity: {
-        type: Number,
-        default: 0,
-      },
+      type: [
+        {
+          product: {
+            type: mongoose.ObjectId,
+            ref: "Product",
+            required: true,
+          },
+          quantity: {
+            type: Number,
+            default: 0,
+          },
+        },
+      ],
+      default: [], // Set a default empty array for the items field
     },
   },
   { timestamps: true },

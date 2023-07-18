@@ -1,5 +1,6 @@
-import axios from "axios"
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
 
 const NewOrder = () => {
   // Array of vendors
@@ -8,8 +9,9 @@ const NewOrder = () => {
   const [selectedVendor, setSelectedVendor] = useState({})
   // Array of Products
   const [products, setProducts] = useState([])
-  // Array of CreateOrder
-  const [order, setOrder] = useState([])
+  const [quantities, setQuantities] = useState([])
+
+  const navigate = useNavigate()
 
   const getVendors = async () => {
     try {
@@ -41,10 +43,48 @@ const NewOrder = () => {
   const handleVendorChange = (evt) => {
     const selectedValue = evt.target.value
     // adding this to try and give it more time to refresh
-    const selectedVendorObj = selectedValue
-      ? vendors.find((vendor) => vendor._id === selectedValue)
-      : {}
+    const selectedVendorObj =
+      vendors.find((vendor) => vendor._id === selectedValue) || {}
     setSelectedVendor(selectedVendorObj)
+  }
+
+  const handleChange = (evt, productId) => {
+    const { value } = evt.target
+    setQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [productId]: value,
+    }))
+  }
+
+  const handleSubmit = async (evt) => {
+    console.log(selectedVendor)
+    evt.preventDefault()
+    const orderItems = []
+    products.forEach((product) => {
+      const productId = product._id
+      const quantity = parseInt(quantities[productId] || 0, 10)
+      if (quantity > 0) {
+        orderItems.push({ product: productId, quantity: quantity })
+      }
+    })
+
+    if (orderItems.length > 0) {
+      const newOrder = {
+        received: false,
+        vendor: selectedVendor._id,
+        items: orderItems,
+      }
+      console.log(newOrder.vendor)
+
+      try {
+        await axios.post("http://localhost:3001/orders", newOrder)
+        navigate("/orders")
+      } catch (err) {
+        console.error(err)
+      }
+    } else {
+      console.log("No order items to create the order.")
+    }
   }
 
   return (
@@ -52,7 +92,7 @@ const NewOrder = () => {
       <div className="order">
         <h1>Create Order</h1>
       </div>
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <div className="order-form">
           <>
             <label htmlFor="vendor-name">Vendor:&nbsp;</label>
@@ -85,26 +125,19 @@ const NewOrder = () => {
                     <td>{product.name}</td>
                     <td className="center-this">{product.sku}</td>
                     <td>
-                      <input type="number" />
+                      <input
+                        type="number"
+                        value={quantities[product._id] || ""}
+                        onChange={(evt) => handleChange(evt, product._id)}
+                      />
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            <button type="submit">Create Order</button>
           </>
-          <br />
-          {/* <table className="order-table">
-          <tr>
-            <th>Here is a table.</th>
-            <th>Here's another topper.</th>
-          </tr>
-          <tr>
-            <td>Here's the table's piece.</td>
-            <td>Here's another piece.</td>
-          </tr>
-        </table> */}
         </div>
-        <button type="submit">Create Order</button>
       </form>
     </div>
   )

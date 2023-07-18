@@ -4,7 +4,7 @@ import axios from "axios"
 
 const Orders = () => {
   const [orders, setOrders] = useState([])
-  const [vendorName, setVendorName] = useState("")
+  const [vendorNames, setVendorNames] = useState({})
 
   const getOrders = async () => {
     try {
@@ -15,10 +15,14 @@ const Orders = () => {
     }
   }
 
-  const getVendor = async () => {
+  const getVendors = async () => {
     try {
-      let res = await axios.get("http://localhost:3001/vendors/${order.vendor}")
-      setVendorName(response.data.vendorName)
+      let res = await axios.get(`http://localhost:3001/vendors/`)
+      const vendorsData = res.data.reduce((acc, vendor) => {
+        acc[vendor._id] = vendor.vendorName
+        return acc
+      }, {})
+      setVendorNames(vendorsData)
     } catch (err) {
       console.error("Error getting vendor data:", err)
     }
@@ -26,8 +30,8 @@ const Orders = () => {
 
   useEffect(() => {
     getOrders()
-    getVendor()
-  }, [vendorName])
+    getVendors()
+  }, [])
 
   const handleDelete = async (id) => {
     try {
@@ -39,6 +43,11 @@ const Orders = () => {
     } catch (err) {
       console.error(err)
     }
+  }
+
+  // Singular This time
+  const getVendorName = (orderId) => {
+    return vendorNames[orders.find((order) => order._id === orderId)?.vendor]
   }
 
   return (
@@ -54,18 +63,30 @@ const Orders = () => {
           <tr>
             <th>Delete Order</th>
             <th>Vendor:</th>
-            <th>Order #:</th>
             <th>Order Date:</th>
+            <th>Order Time:</th>
             <th>Order Received?</th>
+            <th>Order #:</th>
           </tr>
         </thead>
         <tbody>
           {orders.reverse().map((order) => (
             <tr key={order._id}>
               <td>
-                {!order.received && <button onClick={handleDelete}>X</button>}
+                {!order.received && (
+                  <button
+                    className="delete-button"
+                    onClick={() => handleDelete(order._id)}
+                  >
+                    X
+                  </button>
+                )}
               </td>
-              <td>{vendorName}</td>
+              <td>{getVendorName(order._id)}</td>
+              <td>{new Date(order.updatedDate).toLocaleDateString()}</td>
+              <td>{new Date(order.updatedDate).toLocaleTimeString()}</td>
+              <td>{order.received}</td>
+              <td>{order._id}</td>
             </tr>
           ))}
         </tbody>
