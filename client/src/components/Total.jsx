@@ -10,13 +10,15 @@ const Total = (props) => {
       </div>
       <div>
         <h1>Total: ${props.total.toFixed(2)}</h1>
-        <button className="pay-button">
-          <strong>Cash</strong>
-        </button>
-        &nbsp;
-        <button className="pay-button">
-          <strong>Card/Tap</strong>
-        </button>
+        <div className="payment-button-container">
+          <button className="pay-button">
+            <strong>Cash</strong>
+          </button>
+          &nbsp;
+          <button className="pay-button">
+            <strong>Card/Tap</strong>
+          </button>
+        </div>
       </div>
     </div>
   )
