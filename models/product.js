@@ -120,6 +120,8 @@ const productSchema = new Schema(
     },
     qtyOnHand: {
       type: Number,
+      default: 0,
+      required: true,
     },
     cost: {
       type: Number,

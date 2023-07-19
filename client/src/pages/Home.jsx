@@ -78,7 +78,6 @@ const Home = () => {
 
   // Handle Payment
   const handlePayment = async (paymentMethod, amountPaid, changeGiven) => {
-    // console.log("Payment Method: ", paymentMethod)
     // Batch the transaction
     const transactionData = {
       date: new Date(),
@@ -104,6 +103,17 @@ const Home = () => {
         "http://localhost:3001/transactions",
         transactionData,
       )
+
+      for (const item of purchaseQueue) {
+        const productUpdate = {
+          qtyOnHand: item.qtyOnHand - item.quantity,
+        }
+
+        await axios.put(
+          `http://localhost:3001/products/${item._id}`,
+          productUpdate,
+        )
+      }
 
       setPurchaseQueue([])
       setSubtotal(0)
