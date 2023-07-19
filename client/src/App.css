@@ -210,3 +210,7 @@ button {
 .cursor-pointer{
   cursor: pointer;
 }
+
+.selected-button {
+  background-color:#86bbd8
+}
