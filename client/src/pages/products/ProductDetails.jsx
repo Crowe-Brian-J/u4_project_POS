@@ -78,17 +78,17 @@ const ProductDetails = () => {
   const [productDetails, setProductDetails] = useState({
     name: "",
     description: "",
-    upc: null,
+    upc: 0,
     sku: "",
     productType: "",
     alcoholContent: "",
     taxable: false,
     activeStatus: true,
     unitSize: "",
-    casePack: null,
+    casePack: "",
     dietaryRestrictions: [],
-    aisle: null,
-    vendor: null,
+    aisle: 0,
+    vendor: { _id: "" },
   })
   const [selectedProductType, setSelectedProductType] = useState("")
   const [selectedVendor, setSelectedVendor] = useState("")
@@ -102,9 +102,13 @@ const ProductDetails = () => {
         const response = await axios.get(
           `http://localhost:3001/products/${productId}`,
         )
-        setProductDetails(response.data)
+        setProductDetails((prevDetails) => ({
+          ...prevDetails,
+          ...response.data,
+        }))
+        console.log(response.data)
         setSelectedProductType(response.data.productType)
-        setSelectedVendor(response.data.vendor.vendorName)
+        setSelectedVendor(response.data.vendor)
       } catch (err) {
         console.error(err)
       }
@@ -200,7 +204,7 @@ const ProductDetails = () => {
             >
               <option value="">Select a Vendor</option>
               {vendors.map((vendor) => (
-                <option key={vendor._id} value={vendor.vendorName}>
+                <option key={vendor._id} value={vendor._id}>
                   {vendor.vendorName}
                 </option>
               ))}

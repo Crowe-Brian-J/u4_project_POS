@@ -120,7 +120,6 @@ const NewProduct = () => {
       try {
         const response = await axios.get("http://localhost:3001/vendors")
         setVendors(response.data)
-        console.log(response.data)
       } catch (err) {
         console.error(err)
       }
