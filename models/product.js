@@ -1,4 +1,4 @@
-const { Schema, mongoose } = require("mongoose");
+const { Schema, mongoose } = require("mongoose")
 
 const productSchema = new Schema(
   {
@@ -55,7 +55,7 @@ const productSchema = new Schema(
               "30pk",
               "36pk",
             ],
-          };
+          }
         } else if (this.productType === "wine") {
           return {
             enum: [
@@ -69,7 +69,7 @@ const productSchema = new Schema(
               "4.5L",
               "5L",
             ],
-          };
+          }
         } else if (this.productType === "liquor") {
           return {
             enum: [
@@ -82,17 +82,17 @@ const productSchema = new Schema(
               "1.5L",
               "1.75L",
             ],
-          };
+          }
         } else if (this.productType === "carbonated, nonalcoholic") {
           return {
             enum: ["Single", "4pk", "6pk", "12pk"],
-          };
+          }
         } else if (this.productType === "snacks") {
           return {
             enum: ["0.5oz", "1oz", "8.5oz", "10oz", "13oz"],
-          };
+          }
         } else {
-          return "Pkg";
+          return "Pkg"
         }
       },
     },
@@ -130,8 +130,14 @@ const productSchema = new Schema(
     qtyOnHand: {
       type: Number,
     },
+    cost: {
+      type: Number,
+    },
+    price: {
+      type: Number,
+    },
   },
   { timestamps: true },
-);
+)
 
-module.exports = productSchema;
+module.exports = productSchema

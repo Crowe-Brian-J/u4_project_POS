@@ -17,6 +17,7 @@ const App = () => {
   return (
     <div className="App">
       <header className="top-bar">
+        <h1>Irish Spirits</h1>
         <Navbar />
       </header>
       <main>

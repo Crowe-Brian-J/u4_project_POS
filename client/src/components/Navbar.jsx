@@ -7,7 +7,8 @@ const Navbar = () => {
         <div className="menubar">| ___ |</div>
         {/* <dir className="menubar">|&emsp;|</dir> */}
         <div className="dropdown">
-          <a href="/transaction">Transaction</a>
+          <a href="/">Home</a>
+          <a href="/transactions">Transactions</a>
           <a href="/orders">Orders</a>
           <a href="/products">Products</a>
           <a href="/vendors">Vendors</a>
