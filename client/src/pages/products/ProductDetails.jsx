@@ -104,7 +104,6 @@ const ProductDetails = () => {
         )
         setProductDetails(response.data)
         setSelectedProductType(response.data.productType)
-        console.log(selectedProductType)
         setSelectedVendor(response.data.vendor.vendorName)
       } catch (err) {
         console.error(err)
@@ -261,7 +260,7 @@ const ProductDetails = () => {
                 </option>
               ))}
             </select>{" "}
-            <br />
+            &emsp;
             <label htmlFor="alcoholContent">Alcohol Content:</label>
             <select
               className="alcoholContent"
@@ -281,26 +280,32 @@ const ProductDetails = () => {
                 </option>
               ))}
             </select>
-            <br />
+            &emsp;
             {/* Need to work on this form's display. Maybe Change to Yes or No, default No*/}
-            <label htmlFor="taxable">Taxable:</label>
-            <div>
-              <input
-                type="radio"
-                id="taxable-yes"
-                className="taxable"
-                name="taxable"
-                value={true}
-              />
-              <label htmlFor="taxable-yes">Yes</label>
-              <input
-                type="radio"
-                id="taxable-no"
-                className="taxable"
-                name="taxable"
-                value={false}
-              />
-              <label htmlFor="taxable-no">No</label>
+            <div className="form-section">
+              <label htmlFor="taxable">Taxable:</label>
+              <div className="radio-group">
+                <input
+                  type="radio"
+                  id="taxable-yes"
+                  className="taxable"
+                  name="taxable"
+                  value={true}
+                  checked={productDetails.taxable === true}
+                  onChange={handleChange}
+                />
+                <label htmlFor="taxable-yes">Yes</label>
+                <input
+                  type="radio"
+                  id="taxable-no"
+                  className="taxable"
+                  name="taxable"
+                  value={false}
+                  checked={productDetails.taxable === false}
+                  onChange={handleChange}
+                />
+                <label htmlFor="taxable-no">No</label>
+              </div>
             </div>
             <br />
             <label htmlFor="activeStatus">Active Status:</label>
@@ -355,25 +360,30 @@ const ProductDetails = () => {
             </select>{" "}
             <br />
             {/* How do I uncenter these? */}
-            <label htmlFor="dietaryRestrictions">Dietary Restrictions:</label>
-            <input
-              type="checkbox"
-              id="dietaryRestrictions"
-              className="dietaryRestrictions"
-              name="dietaryRestrictions"
-              value={productDetails.dietaryRestrictions}
-              onChange={handleChange}
-            />
-            <label htmlFor="Kosher">Kosher</label>
-            <input
-              type="checkbox"
-              id="dietaryRestrictions"
-              className="dietaryRestrictions"
-              name="dietaryRestrictions"
-              value={productDetails.dietaryRestrictions}
-              onChange={handleChange}
-            />
-            <label htmlFor="Organic">Organic</label> <br />
+            <div className="form-section">
+              <label htmlFor="dietaryRestrictions">Dietary Restrictions:</label>
+              <div className="checkbox-group">
+                <input
+                  type="checkbox"
+                  id="dietaryRestrictions-kosher"
+                  className="dietaryRestrictions"
+                  name="dietaryRestrictions"
+                  value="Kosher"
+                  onChange={handleChange}
+                />
+                <label htmlFor="dietaryRestrictions-kosher">Kosher</label>
+                <input
+                  type="checkbox"
+                  id="dietaryRestrictions-organic"
+                  className="dietaryRestrictions"
+                  name="dietaryRestrictions"
+                  value="Organic"
+                  onChange={handleChange}
+                />
+                <label htmlFor="dietaryRestrictions-organic">Organic</label>{" "}
+              </div>
+              <br />
+            </div>
             <label htmlFor="aisle">Aisle:</label> <br />
             <input
               type="number"

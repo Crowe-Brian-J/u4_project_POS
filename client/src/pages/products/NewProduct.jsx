@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
@@ -91,6 +91,7 @@ const NewProduct = () => {
   const [formState, setFormState] = useState(initialState)
   const [selectedProductType, setSelectedProductType] = useState("")
   const [unitSizes, setUnitSizes] = useState([])
+  const [vendors, setVendors] = useState([])
 
   const navigate = useNavigate()
 
@@ -107,14 +108,31 @@ const NewProduct = () => {
     } else if (productType === "snacks") {
       setUnitSizes(snackUnitSizeEnumValues)
     } else {
-      setUnitSizes("Pkg")
+      setUnitSizes([])
     }
   }
+
+  useEffect(() => {
+    if (selectedProductType) {
+      updateUnitSizes(selectedProductType)
+    }
+    const getVendors = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/vendors")
+        setVendors(response.data)
+        console.log(response.data)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    getVendors()
+  }, [selectedProductType])
 
   // Helper Function to Check on Product Type
   const handleProductTypeChange = (evt) => {
     setSelectedProductType(evt.target.value)
     updateUnitSizes(evt.target.value)
+    setFormState({ ...formState, productType: evt.target.value })
   }
 
   const handleSubmit = async (evt) => {
@@ -141,7 +159,24 @@ const NewProduct = () => {
 
   return (
     <div>
+      <h2>Add a Product</h2>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="vendor-select">Vendor:</label>
+        <select
+          name="vendor"
+          id="vendor"
+          className="vendor"
+          value={formState.vendor}
+          onChange={handleChange}
+        >
+          <option value="">Select Vendor</option>
+          {vendors.map((vendor) => (
+            <option key={vendor._id} value={vendor._id}>
+              {vendor.vendorName}
+            </option>
+          ))}
+        </select>{" "}
+        <br />
         <label htmlFor="name">Product Name:&emsp;</label>
         {/* Change this to enum of vendors, currently works as is */}
         <input
@@ -174,7 +209,8 @@ const NewProduct = () => {
           id="sku"
           value={formState.sku}
           onChange={handleChange}
-        />
+        />{" "}
+        <br />
         <label htmlFor="productType">Product Type:</label>
         <select
           id="productType"
@@ -244,7 +280,19 @@ const NewProduct = () => {
         </select>
         &emsp;
         <label htmlFor="unitSize">Unit Size:</label>
-        {/* <select name="unitSize" className='unitSize' id="unitSize" value={}></select> */}
+        <select
+          name="unitSize"
+          className="unitSize"
+          id="unitSize"
+          value={formState.unitSize}
+          onChange={handleChange}
+        >
+          {unitSizes.map((unit) => (
+            <option key={unit} value={unit}>
+              {unit}
+            </option>
+          ))}
+        </select>
         &emsp;
         <label htmlFor="casePack">Case Pack: (How many per case?)</label>
         <select
@@ -268,26 +316,30 @@ const NewProduct = () => {
           ))}
         </select>
         <br />
-        {/* How do I uncenter these? */}
-        <label htmlFor="dietaryRestrictions">Dietary Restrictions:</label>
-        <input
-          type="checkbox"
-          id="dietaryRestrictions"
-          className="dietaryRestrictions"
-          name="dietaryRestrictions"
-          value={formState.dietaryRestrictions}
-          onChange={handleChange}
-        />
-        <label htmlFor="Kosher">Kosher</label>
-        <input
-          type="checkbox"
-          id="dietaryRestrictions"
-          className="dietaryRestrictions"
-          name="dietaryRestrictions"
-          value={formState.dietaryRestrictions}
-          onChange={handleChange}
-        />
-        <label htmlFor="Organic">Organic</label> <br />
+        <div className="form-section">
+          <label htmlFor="dietaryRestrictions">Dietary Restrictions:</label>
+          <div className="checkbox-group">
+            <input
+              type="checkbox"
+              id="dietaryRestrictions"
+              className="dietaryRestrictions"
+              name="dietaryRestrictions"
+              value={formState.dietaryRestrictions}
+              onChange={handleChange}
+            />
+            <label htmlFor="Kosher">Kosher</label>
+            <input
+              type="checkbox"
+              id="dietaryRestrictions"
+              className="dietaryRestrictions"
+              name="dietaryRestrictions"
+              value={formState.dietaryRestrictions}
+              onChange={handleChange}
+            />
+            <label htmlFor="Organic">Organic</label>
+          </div>
+        </div>
+        <br />
         <label htmlFor="aisle">Aisle:</label>
         {/* Look at changing size of this input only */}
         <input
