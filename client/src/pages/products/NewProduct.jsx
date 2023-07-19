@@ -151,7 +151,6 @@ const NewProduct = () => {
           onChange={handleChange}
         />
         <br />
-        <br />
         <label htmlFor="description">Description:</label>
         <input
           type="text"
@@ -159,14 +158,17 @@ const NewProduct = () => {
           value={formState.description}
           onChange={handleChange}
         />
+        <br />
         <label htmlFor="upc">UPC:</label>
+        <br />
         <input
           type="number"
           id="upc"
           value={formState.upc}
           onChange={handleChange}
         />
-        <label htmlFor="sku">SKU:</label>
+        <br />
+        <label htmlFor="sku">SKU:</label> <br />
         <input
           type="text"
           id="sku"

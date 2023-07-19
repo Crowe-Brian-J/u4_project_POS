@@ -1,98 +1,97 @@
-import axios from 'axios'
-import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import axios from "axios"
+import { useState, useEffect } from "react"
+import { useParams, useNavigate } from "react-router-dom"
 
 const ProductDetails = () => {
+  const [vendors, setVendors] = useState([])
+
   // Look at components
   const typeEnumValues = [
-    'beer',
-    'wine',
-    'liquor',
-    'misc - taxable',
-    'misc - nontaxable',
-    'snacks',
-    'carbonated, nonalcoholic'
+    "beer",
+    "wine",
+    "liquor",
+    "misc - taxable",
+    "misc - nontaxable",
+    "snacks",
+    "carbonated, nonalcoholic",
   ]
   const alcoholContentEnumValues = [
-    '> 36% / 72 proof (Liquor)',
-    '> 14%, < 24% (Wines)',
-    '~12-15% (Malt Beverages)',
-    '~4-14% (Beer)',
-    'Nonalcoholic'
+    "> 36% / 72 proof (Liquor)",
+    "> 14%, < 24% (Wines)",
+    "~12-15% (Malt Beverages)",
+    "~4-14% (Beer)",
+    "Nonalcoholic",
   ]
   const beerUnitSizeEnumValues = [
-    'Single',
-    '7.5oz',
-    '11.5oz',
-    '12oz',
-    '16oz',
-    '18oz',
-    '24oz',
-    '40oz',
-    '4pk',
-    '6pk',
-    '8pk',
-    '12pk',
-    '18pk',
-    '24pk',
-    '30pk',
-    '36pk'
+    "Single",
+    "7.5oz",
+    "11.5oz",
+    "12oz",
+    "16oz",
+    "18oz",
+    "24oz",
+    "40oz",
+    "4pk",
+    "6pk",
+    "8pk",
+    "12pk",
+    "18pk",
+    "24pk",
+    "30pk",
+    "36pk",
   ]
   const wineUnitSizeEnumValues = [
-    '187mL',
-    '4pk',
-    '375mL',
-    '500mL',
-    '750mL',
-    '1.5L',
-    '3L',
-    '4.5L',
-    '5L'
+    "187mL",
+    "4pk",
+    "375mL",
+    "500mL",
+    "750mL",
+    "1.5L",
+    "3L",
+    "4.5L",
+    "5L",
   ]
   const liquorUnitSizeEnumValues = [
-    '50mL',
-    '100mL',
-    '200mL',
-    '375mL',
-    '750mL',
-    '1L',
-    '1.5L',
-    '1.75L'
+    "50mL",
+    "100mL",
+    "200mL",
+    "375mL",
+    "750mL",
+    "1L",
+    "1.5L",
+    "1.75L",
   ]
   const sodaUnitSizeEnumValues = [
-    'Single (20oz, 2L, etc.)',
-    '4pk',
-    '6pk',
-    '12pk'
+    "Single (20oz, 2L, etc.)",
+    "4pk",
+    "6pk",
+    "12pk",
   ]
-  const snackUnitSizeEnumValues = ['0.5oz', '1oz', '8.5oz', '10oz', '13oz']
+  const snackUnitSizeEnumValues = ["0.5oz", "1oz", "8.5oz", "10oz", "13oz"]
   const activeStatusEnumValues = [
-    'active',
-    'inactive (i.e. seasonally unavailable)'
+    "active",
+    "inactive (i.e. seasonally unavailable)",
   ]
   const casePackEnumValues = [1, 2, 4, 6, 8, 10, 12, 24]
 
   // States
   const [productDetails, setProductDetails] = useState({
-    name: '',
-    description: '',
+    name: "",
+    description: "",
     upc: null,
-    sku: '',
-    alcoholContent: '',
+    sku: "",
+    productType: "",
+    alcoholContent: "",
     taxable: false,
     activeStatus: true,
-    unitSize: '',
+    unitSize: "",
     casePack: null,
     dietaryRestrictions: [],
     aisle: null,
-    vendor: {
-      vendorName: '',
-      repName: '',
-      phoneNumber: '',
-      email: ''
-    }
+    vendor: null,
   })
-  const [selectedProductType, setSelectedProductType] = useState('')
+  const [selectedProductType, setSelectedProductType] = useState("")
+  const [selectedVendor, setSelectedVendor] = useState("")
   const [unitSizes, setUnitSizes] = useState([])
 
   let { id: productId } = useParams()
@@ -101,32 +100,45 @@ const ProductDetails = () => {
     const getDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/products/${productId}`
+          `http://localhost:3001/products/${productId}`,
         )
         setProductDetails(response.data)
+        setSelectedProductType(response.data.productType)
+        console.log(selectedProductType)
+        setSelectedVendor(response.data.vendor.vendorName)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    const getVendors = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/vendors`)
+        setVendors(response.data)
       } catch (err) {
         console.error(err)
       }
     }
     getDetails()
+    getVendors()
   }, [productId])
 
   const navigate = useNavigate()
 
   // Helper Function to update options for unitSizes based on productType
-  const updateUnitSizes = (productType) => {
-    if (productType === 'beer') {
+  const updateUnitSizes = () => {
+    if (selectedProductType === "beer") {
+      console.log("The Product Type is Beer")
       setUnitSizes(beerUnitSizeEnumValues)
-    } else if (productType === 'wine') {
+    } else if (productType === "wine") {
       setUnitSizes(wineUnitSizeEnumValues)
-    } else if (productType === 'liquor') {
+    } else if (productType === "liquor") {
       setUnitSizes(liquorUnitSizeEnumValues)
-    } else if (productType === 'carbonated, nonalcoholic') {
+    } else if (productType === "carbonated, nonalcoholic") {
       setUnitSizes(sodaUnitSizeEnumValues)
-    } else if (productType === 'snacks') {
+    } else if (productType === "snacks") {
       setUnitSizes(snackUnitSizeEnumValues)
     } else {
-      setUnitSizes('Pkg')
+      setUnitSizes("Pkg")
     }
   }
 
@@ -141,9 +153,9 @@ const ProductDetails = () => {
     try {
       const response = await axios.put(
         `http://localhost:3001/products/${productId}`,
-        productDetails
+        productDetails,
       )
-      navigate('/products')
+      navigate("/products")
     } catch (err) {
       console.error(err)
     }
@@ -153,13 +165,26 @@ const ProductDetails = () => {
     const { name, value } = evt.target
     setProductDetails((productDetails) => ({
       ...productDetails,
-      [name]: value
+      [name]: value,
     }))
     console.log(productDetails)
   }
 
+  const handleVendorChange = (evt) => {
+    const selectedVendorName = evt.target.value
+    setSelectedVendor(selectedVendorName)
+    const selectedVendorObj = vendors.find(
+      (vendor) => vendor.vendorName === selectedVendorName,
+    )
+    setProductDetails((prevState) => ({
+      ...prevState,
+      vendor: selectedVendorObj,
+    }))
+  }
+
   return (
     <div className="product-content">
+      <h2>Product Details</h2>
       <section className="details">
         <div className="flex-row space">
           {productDetails.qtyOnHand ? (
@@ -167,7 +192,20 @@ const ProductDetails = () => {
           ) : null}
           <form onSubmit={handleSubmit}>
             <label htmlFor="vendor">Vendor:</label>
-            <select name="" id=""></select>
+            <select
+              id="vendor"
+              className="vendor"
+              name="vendor"
+              value={selectedVendor}
+              onChange={handleVendorChange}
+            >
+              <option value="">Select a Vendor</option>
+              {vendors.map((vendor) => (
+                <option key={vendor._id} value={vendor.vendorName}>
+                  {vendor.vendorName}
+                </option>
+              ))}
+            </select>
             <br />
             <label htmlFor="name">Product Name:</label>
             <input
@@ -186,7 +224,8 @@ const ProductDetails = () => {
               name="description"
               value={productDetails.description}
               onChange={handleChange}
-            />
+            />{" "}
+            <br />
             <label htmlFor="upc">UPC:</label>
             <br />
             <input
@@ -221,7 +260,7 @@ const ProductDetails = () => {
                   {option}
                 </option>
               ))}
-            </select>{' '}
+            </select>{" "}
             <br />
             <label htmlFor="alcoholContent">Alcohol Content:</label>
             <select
@@ -277,14 +316,13 @@ const ProductDetails = () => {
                 </option>
               ))}
             </select>
-            <br />
+            &emsp;
             <label htmlFor="unitSize">Unit Size:</label>
-            <br />
-            {/* <select
+            <select
               name="unitSize"
               className="unitSize"
               id="unitSize"
-              value={selectedUnitSize}
+              value={productDetails.unitSize}
               onChange={handleChange}
             >
               <option value="">Select a Unit Size</option>
@@ -293,7 +331,8 @@ const ProductDetails = () => {
                   {unitSize}
                 </option>
               ))}
-            </select> */}
+            </select>{" "}
+            &emsp;
             <label htmlFor="casePack">Case Pack: (How many per case?)</label>
             <select
               className="casePack"
@@ -313,7 +352,7 @@ const ProductDetails = () => {
                   {enumOption}
                 </option>
               ))}
-            </select>{' '}
+            </select>{" "}
             <br />
             {/* How do I uncenter these? */}
             <label htmlFor="dietaryRestrictions">Dietary Restrictions:</label>
