@@ -62,25 +62,29 @@ const Total = ({
       </div>
       <div className="total-buttons">
         <button onClick={calculateTotal}>Calculate Total</button>
-        <button
-          className={paymentMethod === "cash" ? "selected-button" : ""}
-          onClick={() => handlePaymentMethodChange("cash")}
-        >
-          Cash
-        </button>
-        <button
-          className={paymentMethod === "credit" ? "selected-button" : ""}
-          onClick={() => handlePaymentMethodChange("credit")}
-        >
-          Credit
-        </button>
-        <button
-          className={paymentMethod === "debit" ? "selected-button" : ""}
-          onClick={() => handlePaymentMethodChange("debit")}
-        >
-          Debit
-        </button>
+        <div>Select Payment Type:</div>
+        <div className="payment-buttons-container">
+          <button
+            className={paymentMethod === "cash" ? "selected-button" : ""}
+            onClick={() => handlePaymentMethodChange("cash")}
+          >
+            Cash
+          </button>
+          <button
+            className={paymentMethod === "credit" ? "selected-button" : ""}
+            onClick={() => handlePaymentMethodChange("credit")}
+          >
+            Credit
+          </button>
+          <button
+            className={paymentMethod === "debit" ? "selected-button" : ""}
+            onClick={() => handlePaymentMethodChange("debit")}
+          >
+            Debit
+          </button>
+        </div>
       </div>
+      <div>Submit Payment:</div>
       {paymentMethod === "cash" && (
         <div>
           <form onSubmit={handleSubmitPayment}>

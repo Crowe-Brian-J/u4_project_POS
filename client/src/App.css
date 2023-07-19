@@ -244,3 +244,10 @@ button {
   color:#04724d;
   font-weight: 500;
 }
+
+.payment-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: left;
+}
