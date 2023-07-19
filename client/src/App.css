@@ -228,3 +228,19 @@ button {
 .radio-group label, .checkbox-group label {
   margin-right: 1rem;
 }
+
+.transaction-poster {
+  display: flex;
+  background-color: #fffafb;
+  color:#121d2b;
+  max-width: 30vh;
+  border-radius: 5px;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: left;
+}
+
+.order-number {
+  color:#04724d;
+  font-weight: 500;
+}

@@ -14,7 +14,6 @@ const OrderDetails = () => {
 
     try {
       const res = await axios.get(`http://localhost:3001/orders/${orderId}`)
-      console.log(res.data)
       setOrderDetails(res.data)
     } catch (err) {
       console.error(err)
